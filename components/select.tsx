@@ -1,8 +1,8 @@
 import { MouseEvent, FC, useState } from "react";
 import styles from "../styles/select.module.scss";
 import Image from "next/image";
-import arrow from "../public/icons/arrow.svg";
-import arrowActive from "../public/icons/arrow-active.svg";
+import arrow from "../public/filters-bar/arrow.svg";
+import arrowActive from "../public/filters-bar/arrow-active.svg";
 
 interface ISelect {
   className: string;
