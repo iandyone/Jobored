@@ -6,6 +6,7 @@ import logo from "../public/logo.svg";
 import Navbar from "./navbar";
 
 const Header: FC = () => {
+
   return (
     <header className={styles.header}>
       <div className={styles.header__container + ' container'}>

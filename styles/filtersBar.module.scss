@@ -1,0 +1,97 @@
+@import "./resoures/variables.scss";
+@import "./resoures/templates.scss";
+
+.filters {
+  max-width: 315px;
+  background: $white;
+  border: 1px solid $gray200;
+  border-radius: 12px;
+  padding: 20px;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  &__reset {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 104%;
+    display: flex;
+    align-items: center;
+    color: $gray500;
+    transition: $transition;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+      transition: $transition;
+      color: $blue400;
+
+      line {
+        transition: $transition;
+        stroke: $blue400;
+      }
+    }
+
+    &:active {
+      cursor: pointer;
+      transition: $transition;
+      color: $blue500;
+
+      line {
+        transition: $transition;
+        stroke: $blue500;
+      }
+    }
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    line {
+      transition: $transition;
+    }
+  }
+
+  &__title {
+    @extend %title;
+
+  }
+
+  &__industry {
+  }
+
+  &__salary {
+   
+  }
+}
+
+.industry {
+  &__title {
+    @extend %title;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  &__select {
+    margin-bottom: 20px;
+  }
+
+  &__option {
+  }
+}
+.salary {
+  margin-bottom: 20px;
+  &__title {
+    @extend %title;
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+}

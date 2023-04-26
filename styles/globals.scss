@@ -7,3 +7,7 @@
   box-sizing: content-box;
   padding: 0 20px;
 }
+
+.button {
+  @extend %button;
+}

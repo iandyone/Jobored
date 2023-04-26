@@ -7,3 +7,25 @@
   font-size: 20px;
   line-height: 20px;
 }
+
+%button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $blue500;
+  border-radius: 8px;
+  height: 40px;
+  color: $white;
+  width: 100%;
+  transition: $transition;
+  
+  &:hover {
+    transition: $transition;
+    background-color: $blue400;
+  }
+  
+  &:active {
+    transition: $transition;
+    background-color: $blue600;
+  }
+}
