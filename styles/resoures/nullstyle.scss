@@ -1,0 +1,106 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:regular);
+@import url(https://fonts.googleapis.com/css?family=Inter:regular,500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Poppins:regular,600);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:regular);
+
+@import "./variables.scss";
+@import "./templates.scss";
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    &,
+    &::before,
+    &::after {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+}
+
+:focus,
+:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-weight: 400;
+    font-family: $Inter;
+    background-color: $gray;
+    color: $black;
+    scroll-behavior: smooth;
+}
+
+body {
+    height: auto;
+    // position: relative;
+}
+
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button {
+    cursor: pointer;
+    &::-moz-focus-inner {
+        padding: 0;
+        border: 0;
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+    &:focus,
+    &:active {
+        outline: none;
+    }
+    &:visited {
+        text-decoration: none;
+    }
+}
+
+ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+
+svg path {
+    stroke: inherit;
+    stroke-width: inherit;
+    fill: inherit;
+}
