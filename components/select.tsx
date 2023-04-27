@@ -24,8 +24,7 @@ const Select: FC<ISelect> = ({ className }) => {
 
   const categories = catalog.map(category => {
     return {id: category.key, title: category.title_trimmed}
-  })
-  console.log(catalog);
+  }) ?? [];
   
 
 

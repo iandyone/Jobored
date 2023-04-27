@@ -1,33 +1,59 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.scss";
 import FiltersBar from "@/components/filtersBar";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { IAuthResponse, IVacancy } from "@/types";
 import axios from "@/axios";
 
-interface IAuthResponse {
-  access_token: string,
-  refresh_token: string,
-  token_type: string
-}
+export async function getStaticProps() {
+  const authResponse = await axios.get<IAuthResponse>("/oauth2/password", {
+    params: {
+      login: "sergei.stralenia@gmail.com",
+      password: "paralect123",
+      client_id: 2231,
+      client_secret: "v3.r.137440105.399b9c5f19384345afe0ad0339e619e71c66af1d.800f8642a38256679e908c370c44267f705c2909",
+      hr: 0,
+    },
+  });
 
-export default function Home() {
-  async function fetchData() {
-    const response = await axios.get<IAuthResponse>('https://startup-summer-2023-proxy.onrender.com/2.0/oauth2/password', {
-      params: {
-        login: 'sergei.stralenia@gmail.com',
-        password: 'paralect123',
-        client_id: 2231,
-        client_secret: 'v3.r.137440105.399b9c5f19384345afe0ad0339e619e71c66af1d.800f8642a38256679e908c370c44267f705c2909',
-        hr: 0,
-      }
-    })
-    localStorage.setItem('Access', `${response.data.token_type} ${response.data.access_token}`);   
+  const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
+
+  interface VacancyResponse {
+    more: boolean;
+    objects: IVacancy[];
+    total: number;
   }
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  const vacanciesResponse = await axios.get<VacancyResponse>("/vacancies", {
+    params: {
+      page: 1,
+      count: 4,
+    },
+    headers: {
+      Authorization: accessToken,
+    },
+  });
 
+  if (!vacanciesResponse.data && !authResponse.data) {
+    return { notFound: true };
+  }
+
+  return {
+    props: { vacancies: vacanciesResponse.data, accessToken },
+  };
+}
+
+interface HomeProps {
+  vacancies: IVacancy[];
+  accessToken: string;
+}
+
+const Home: FC<HomeProps> = ({ accessToken, vacancies }) => {
+  console.log(vacancies);
+
+  useEffect(() => {
+    localStorage.setItem("Access", accessToken);
+  }, []);
 
   return (
     <>
@@ -46,4 +72,6 @@ export default function Home() {
       </section>
     </>
   );
-}
+};
+
+export default Home;
