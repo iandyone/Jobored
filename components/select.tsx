@@ -1,10 +1,13 @@
-import { MouseEvent, FC, useState } from "react";
+import { MouseEvent, FC, useState, useEffect } from "react";
 import styles from "../styles/select.module.scss";
 import Image from "next/image";
 import arrow from "../public/filters-bar/arrow.svg";
 import arrowActive from "../public/filters-bar/arrow-active.svg";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setCategory } from "@/store/slices/filter-slice";
+import axios from "@/axios";
+import { ICatalog } from "@/types";
+import fetchCatalogAsync from "@/store/actions/filter-actions";
 
 interface ISelect {
   className: string;
@@ -13,22 +16,19 @@ interface ISelect {
 const Select: FC<ISelect> = ({ className }) => {
   const [selectActivity, setSelectActivity] = useState(false);
   const [menuVisability, setMenuVisability] = useState(false);
-  const { category: selectValue } = useSelectorTyped((store) => store.filters);
+  const { category: selectValue, catalog } = useSelectorTyped((store) => store.filters);
   const dispatch = useDispatchTyped();
 
   const selectClassName = selectActivity ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
-  const testData = [
-    { id: 1, value: "IT, интернет, связь, телеком" },
-    { id: 2, value: "Кадры, управление персоналом 121212123123" },
-    { id: 3, value: "Искусство, культура, развлечения" },
-    { id: 4, value: "Банки, инвестиции, лизинг" },
-    { id: 5, value: "Дизайн" },
-    { id: 11, value: "IT, интернет, связь, телеком" },
-    { id: 21, value: "Кадры, управление персоналом" },
-    { id: 31, value: "Искусство, культура, развлечения" },
-    { id: 41, value: "Банки, инвестиции, лизинг" },
-    { id: 51, value: "Дизайн" },
-  ];
+
+
+  const categories = catalog.map(category => {
+    return {id: category.key, title: category.title_trimmed}
+  })
+  console.log(catalog);
+  
+
+
 
   function selectOnClick(e: MouseEvent<HTMLDivElement>) {
     setMenuVisability(!menuVisability);
@@ -43,6 +43,10 @@ const Select: FC<ISelect> = ({ className }) => {
     setMenuVisability(false);
   }
 
+  useEffect(() => {
+    dispatch(fetchCatalogAsync())
+  },[])
+
   return (
     <div className={selectClassName} onClick={selectOnClick}>
       <span>{selectValue || 'Выберите отрасль'}</span>
@@ -50,10 +54,10 @@ const Select: FC<ISelect> = ({ className }) => {
         <Image src={menuVisability ? arrowActive : arrow} alt='x-mark icon' />
       </div>
       <ul className={menuVisability ? `${styles.select__menu} + ${styles.active}` : styles.select__menu}>
-        {testData.map(({ id, value }) => {
+        {categories &&  categories.map(({ id, title }) => {
           return (
-            <li className={styles.select__option} data-value={value} onClick={optionOnClick} key={id}>
-              <span>{value}</span>
+            <li className={styles.select__option} data-value={title} onClick={optionOnClick} key={id}>
+              <span>{title}</span>
             </li>
           );
         })}
