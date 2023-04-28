@@ -21,7 +21,11 @@ export interface IAuthResponse {
   token_type: string
 }
 
-
+export interface VacancyResponse {
+  more: boolean;
+  objects: IVacancy[];
+  total: number;
+}
 
 export interface IVacancy {
   id: number;

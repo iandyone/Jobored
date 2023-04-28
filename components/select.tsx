@@ -21,10 +21,11 @@ const Select: FC<ISelect> = ({ className }) => {
 
   const selectClassName = selectActivity ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
 
+  const temp = catalog || []
 
-  const categories = catalog.map(category => {
+  const categories = temp.map(category => {
     return {id: category.key, title: category.title_trimmed}
-  }) ?? [];
+  }) || [];
   
 
 

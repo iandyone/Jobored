@@ -2,7 +2,7 @@ import axios from "@/axios";
 import { ICatalog } from "@/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const fetchCatalogAsync = createAsyncThunk(`fetchUsers`, async (_, thunkAPI) => {
+const fetchCatalogAsync = createAsyncThunk(`fetchCatalog`, async (_, thunkAPI) => {
   try {
     const response = await axios.get<ICatalog[]>("/catalogues", {
       headers: {

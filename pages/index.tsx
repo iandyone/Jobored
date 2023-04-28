@@ -4,42 +4,21 @@ import FiltersBar from "@/components/filtersBar";
 import { FC, useEffect } from "react";
 import { IAuthResponse, IVacancy } from "@/types";
 import axios from "@/axios";
+import { useDispatchTyped } from "@/hooks/redux";
+import fetchCatalogAsync from "@/store/actions/filter-actions";
+import { getAuthorization, getVacancies } from "@/helpers/fetchers";
 
 export async function getStaticProps() {
-  const authResponse = await axios.get<IAuthResponse>("/oauth2/password", {
-    params: {
-      login: "sergei.stralenia@gmail.com",
-      password: "paralect123",
-      client_id: 2231,
-      client_secret: "v3.r.137440105.399b9c5f19384345afe0ad0339e619e71c66af1d.800f8642a38256679e908c370c44267f705c2909",
-      hr: 0,
-    },
-  });
+  const accessToken = await getAuthorization() || '';
 
-  const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
+  const vacancies = await getVacancies(accessToken) || ''
 
-  interface VacancyResponse {
-    more: boolean;
-    objects: IVacancy[];
-    total: number;
-  }
-
-  const vacanciesResponse = await axios.get<VacancyResponse>("/vacancies", {
-    params: {
-      page: 1,
-      count: 4,
-    },
-    headers: {
-      Authorization: accessToken,
-    },
-  });
-
-  if (!vacanciesResponse.data && !authResponse.data) {
-    return { notFound: true };
-  }
+  // if (!vacancies && !accessToken) {
+  //   return { notFound: true };
+  // }
 
   return {
-    props: { vacancies: vacanciesResponse.data, accessToken },
+    props: { vacancies, accessToken },
   };
 }
 
@@ -48,11 +27,14 @@ interface HomeProps {
   accessToken: string;
 }
 
+
 const Home: FC<HomeProps> = ({ accessToken, vacancies }) => {
   console.log(vacancies);
+  const dispatch = useDispatchTyped();
 
   useEffect(() => {
     localStorage.setItem("Access", accessToken);
+    dispatch(fetchCatalogAsync());
   }, []);
 
   return (
