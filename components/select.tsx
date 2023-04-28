@@ -1,10 +1,10 @@
-import { MouseEvent, FC, useState, useEffect } from "react";
+import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
+import { MouseEvent, FC, useState } from "react";
+import { setCategory } from "@/store/slices/filter-slice";
 import styles from "../styles/select.module.scss";
 import Image from "next/image";
 import arrow from "../public/filters-bar/arrow.svg";
 import arrowActive from "../public/filters-bar/arrow-active.svg";
-import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
-import { setCategory } from "@/store/slices/filter-slice";
 
 interface ISelect {
   className: string;
@@ -13,14 +13,10 @@ interface ISelect {
 const Select: FC<ISelect> = ({ className }) => {
   const [selectActivity, setSelectActivity] = useState(false);
   const [menuVisability, setMenuVisability] = useState(false);
-  const { category: selectValue, catalog } = useSelectorTyped((store) => store.filters);
-  const dispatch = useDispatchTyped();
-
+  const { category: selectValue, categories } = useSelectorTyped((store) => store.filters);
   const selectClassName = selectActivity ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
-  const categories = catalog.map(category => {
-    return {id: category.key, title: category.title_trimmed}
-  }) || [];
-  
+  const dispatch = useDispatchTyped();
+   
   function selectOnClick(e: MouseEvent<HTMLDivElement>) {
     setMenuVisability(!menuVisability);
   }

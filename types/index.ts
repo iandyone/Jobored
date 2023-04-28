@@ -7,6 +7,11 @@ export interface ICatalog {
   key: number;
 }
 
+export interface ICategory {
+  id: number;
+  title: string;
+}
+
 export interface IPosition {
   id_parent: number;
   key: number;

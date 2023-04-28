@@ -1,10 +1,10 @@
-import { ICatalog } from "@/types";
+import { ICategory } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type ISalary = number | string;
 
 interface filtersState {
-  catalog: ICatalog[];
+  categories: ICategory[];
   category: string;
   from: ISalary;
   to: ISalary;
@@ -12,7 +12,7 @@ interface filtersState {
 }
 
 const initialState: filtersState = {
-  catalog: [],
+  categories: [],
   category: "",
   from: "",
   to: "",
@@ -35,8 +35,8 @@ const filterSlice = createSlice({
       state.to = action.payload;
     },
 
-    setCatalog(state, action: PayloadAction<ICatalog[]>) {
-      state.catalog = action.payload;
+    setCatalog(state, action: PayloadAction<ICategory[]>) {
+      state.categories = action.payload;
     },
 
     resetFilters(state) {

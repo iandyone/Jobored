@@ -42,7 +42,12 @@ export async function getCatalog({ accessToken = "" }) {
       },
     });
 
-    return catalotResponse.data;
+    const categories = catalotResponse.data.map(category => {
+      return {id: category.key, title: category.title_trimmed}
+    }) || [];
+
+    
+    return categories;
   } catch (error) {
     console.log(error);
   }
