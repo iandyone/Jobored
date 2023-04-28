@@ -17,12 +17,16 @@
     border-radius: 8px;
     padding: 8px 12px;
     transition: $transition;
-    
+
+    &::-webkit-input-placeholder {
+      color: $gray500;
+    }
+
     &:not(:last-child) {
       margin-bottom: 8px;
     }
 
-    &:hover {
+    &:hover, &:focus {
       // cursor: pointer;
       border: 1px solid #5e96fc;
       transition: $transition;

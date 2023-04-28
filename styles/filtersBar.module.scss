@@ -62,14 +62,6 @@
 
   &__title {
     @extend %title;
-
-  }
-
-  &__industry {
-  }
-
-  &__salary {
-   
   }
 }
 
@@ -83,10 +75,8 @@
   &__select {
     margin-bottom: 20px;
   }
-
-  &__option {
-  }
 }
+
 .salary {
   margin-bottom: 20px;
   &__title {

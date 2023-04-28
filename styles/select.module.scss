@@ -13,6 +13,11 @@
   border-radius: 8px;
   padding: 8px 12px;
   position: relative;
+  transition: $transition;
+
+  &.selected {
+    border: 1px solid $blue500;
+  }
 
   span {
     white-space: nowrap;
@@ -27,34 +32,57 @@
 
   &:hover {
     cursor: pointer;
-    border: 1px solid #5e96fc;
+    border: 1px solid $blue500;
     transition: $transition;
   }
 
   &__icon {
     position: absolute;
-    right: 10px;
+    right: 13px;
     top: 50%;
     transform: translateY(-50%);
+
+    svg {
+      fill: $gray500;
+    }
+
+    &.active {
+
+      svg {
+        fill: $blue500;
+      }
+
+      & > .select__svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__svg {
+    color: $gray500;
+    height: 25px;
   }
 
   &__menu {
     position: absolute;
     top: 50px;
-    left: 0;
+    left: -1px;
     height: auto;
     max-height: 275px;
-    width: 100%;
+    width: 101%;
     background: $white;
     border-radius: 8px;
     order: 2;
     overflow: auto;
     display: none;
-
+    padding-left: 4px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    
     &.active {
       display: block;
       z-index: 50;
       transition: $transition;
+
     }
 
     &::-webkit-scrollbar {
@@ -70,7 +98,7 @@
   }
 
   &__option {
-    padding: 0 12px;
+    padding: 0 8px;
     font-size: 14px;
     line-height: 143%;
     display: flex;
@@ -78,7 +106,7 @@
     color: $black;
     width: 100%;
     height: 36px;
-   
+
     span {
       display: flex;
       align-items: center;

@@ -11,3 +11,7 @@
 .button {
   @extend %button;
 }
+
+.test {
+  border-radius: 8px;
+}
