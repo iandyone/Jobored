@@ -27,9 +27,9 @@ const Home: FC<HomeProps> = ({ accessToken, vacancies, categories }) => {
   const dispatch = useDispatchTyped();
 
   useEffect(() => {
-    console.log('accessToken', accessToken);
-    console.log('vacancies', vacancies);
-    console.log('catalog', categories);
+    // console.log('accessToken', accessToken);
+    // console.log('vacancies', vacancies);
+    // console.log('catalog', categories);
     
     localStorage.setItem("Access", accessToken);
     dispatch(setCatalog(categories));

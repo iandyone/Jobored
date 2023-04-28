@@ -1,24 +1,20 @@
 import { FC } from "react";
+import { useDispatchTyped } from "@/hooks/redux";
+import { resetFilters } from "@/store/slices/filter-slice";
 import styles from "../styles/filtersBar.module.scss";
 import Select from "./select";
 import Input from "./input";
 import Heading from "./heading";
 import Button from "./button";
-import { useDispatchTyped } from "@/hooks/redux";
-import { resetFilters } from "@/store/slices/filter-slice";
 
 const FiltersBar: FC = () => {
   const dispatch = useDispatchTyped();
-
-  function getDefaultFilters() {
-    dispatch(resetFilters());
-  }
 
   return (
     <div className={styles.filters}>
       <div className={styles.filters__header}>
         <Heading className={styles.filters__title} tag='h2' text='Фильтры' />
-        <div className={styles.filters__reset} onClick={getDefaultFilters}>
+        <div className={styles.filters__reset} onClick={() => dispatch(resetFilters())}>
           <span>Сбросить все</span>
           <div className={styles.filters__icon}>
             <svg width='16' height='16' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'>
@@ -34,8 +30,8 @@ const FiltersBar: FC = () => {
       </article>
       <article className={styles.salary}>
         <Heading className={styles.salary__title} tag='h3' text='Оклад' />
-        <Input type='number' placeholder='От' salaryType='min' />
-        <Input type='number' placeholder='До' salaryType='max' />
+        <Input placeholder='От' salaryType='min' />
+        <Input placeholder='До' salaryType='max' />
       </article>
       <Button className={styles.filters__button} text='Применить' />
     </div>
