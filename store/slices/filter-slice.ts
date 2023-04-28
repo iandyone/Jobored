@@ -1,6 +1,5 @@
 import { ICatalog } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import fetchCatalogAsync from "../actions/filter-actions";
 
 type ISalary = number | string;
 
@@ -61,4 +60,4 @@ const filterSlice = createSlice({
 });
 
 export default filterSlice.reducer;
-export const { setCategory, setMaxSalaryValue, setMinSalaryValue, setCatalog, resetFilters } = filterSlice.actions;
+export const { setCategory, setCatalog, setMaxSalaryValue, setMinSalaryValue, resetFilters } = filterSlice.actions;

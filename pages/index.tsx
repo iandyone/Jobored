@@ -29,8 +29,6 @@ const Home: FC<HomeProps> = ({ accessToken, vacancies, catalog }) => {
 
 
   useEffect(() => {
-    getAuthorization()
-    // getVacancies({})
     console.log('accessToken', accessToken);
     console.log('vacancies', vacancies);
     console.log('catalog', catalog);

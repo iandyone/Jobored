@@ -2,9 +2,9 @@ export interface ICatalog {
   title: string;
   title_rus: string;
   title_trimmed: string;
-  url_rus: string
+  url_rus: string;
   positions: IPosition[];
-  key: number
+  key: number;
 }
 
 export interface IPosition {
@@ -16,9 +16,9 @@ export interface IPosition {
 }
 
 export interface IAuthResponse {
-  access_token: string,
-  refresh_token: string,
-  token_type: string
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
 }
 
 export interface VacancyResponse {
@@ -38,7 +38,7 @@ export interface IVacancy {
   catalogues: {
     0: {
       title: string;
-    }
+    };
   };
   type_of_work: {
     id: number;
@@ -48,4 +48,3 @@ export interface IVacancy {
   payment_from: number;
   currency: string;
 }
-

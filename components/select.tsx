@@ -5,9 +5,6 @@ import arrow from "../public/filters-bar/arrow.svg";
 import arrowActive from "../public/filters-bar/arrow-active.svg";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setCategory } from "@/store/slices/filter-slice";
-import axios from "@/axios";
-import { ICatalog } from "@/types";
-import fetchCatalogAsync from "@/store/actions/filter-actions";
 
 interface ISelect {
   className: string;
@@ -20,16 +17,10 @@ const Select: FC<ISelect> = ({ className }) => {
   const dispatch = useDispatchTyped();
 
   const selectClassName = selectActivity ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
-
-  // const temp = catalog || []
-
   const categories = catalog.map(category => {
     return {id: category.key, title: category.title_trimmed}
   }) || [];
   
-
-
-
   function selectOnClick(e: MouseEvent<HTMLDivElement>) {
     setMenuVisability(!menuVisability);
   }
@@ -42,11 +33,7 @@ const Select: FC<ISelect> = ({ className }) => {
     setSelectActivity(true);
     setMenuVisability(false);
   }
-
-  useEffect(() => {
-    // dispatch(fetchCatalogAsync())
-  },[])
-
+  
   return (
     <div className={selectClassName} onClick={selectOnClick}>
       <span>{selectValue || 'Выберите отрасль'}</span>
@@ -54,7 +41,7 @@ const Select: FC<ISelect> = ({ className }) => {
         <Image src={menuVisability ? arrowActive : arrow} alt='x-mark icon' />
       </div>
       <ul className={menuVisability ? `${styles.select__menu} + ${styles.active}` : styles.select__menu}>
-        {categories &&  categories.map(({ id, title }) => {
+        {categories && categories.map(({ id, title }) => {
           return (
             <li className={styles.select__option} data-value={title} onClick={optionOnClick} key={id}>
               <span>{title}</span>

@@ -1,21 +1,7 @@
 import Head from "next/head";
-import { FC, useEffect } from "react";
-import axios from "axios";
+import { FC } from "react";
 
 const Favorites: FC = () => {
-  async function test() {
-    const res = await axios.get("https://startup-summer-2023-proxy.onrender.com/2.0/vacancies", {
-      headers: {
-        "X-Api-App-Id": "v3.r.137440105.399b9c5f19384345afe0ad0339e619e71c66af1d.800f8642a38256679e908c370c44267f705c2909",
-        Authorization: localStorage.getItem("Access"),
-      },
-    });
-    // console.log(res.data);
-  }
-
-  useEffect(() => {
-    // test();
-  }, []);
   return (
     <>
       <Head>
