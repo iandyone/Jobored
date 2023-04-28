@@ -13,6 +13,8 @@ export async function getAuthorization() {
       },
     });
 
+    console.log(authResponse);
+    
     const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
     return accessToken;
   } catch (error) {
@@ -27,6 +29,7 @@ export async function getVacancies({ page = 1, count = 4, accessToken = "" }) {
       headers: { Authorization: accessToken },
     });
 
+    console.log(vacanciesResponse);
     return vacanciesResponse.data;
   } catch (error) {
     console.log(error);
