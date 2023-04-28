@@ -21,9 +21,9 @@ const Select: FC<ISelect> = ({ className }) => {
 
   const selectClassName = selectActivity ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
 
-  const temp = catalog || []
+  // const temp = catalog || []
 
-  const categories = temp.map(category => {
+  const categories = catalog.map(category => {
     return {id: category.key, title: category.title_trimmed}
   }) || [];
   
@@ -44,7 +44,7 @@ const Select: FC<ISelect> = ({ className }) => {
   }
 
   useEffect(() => {
-    dispatch(fetchCatalogAsync())
+    // dispatch(fetchCatalogAsync())
   },[])
 
   return (

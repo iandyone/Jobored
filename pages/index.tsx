@@ -2,39 +2,38 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.scss";
 import FiltersBar from "@/components/filtersBar";
 import { FC, useEffect } from "react";
-import { IAuthResponse, IVacancy } from "@/types";
-import axios from "@/axios";
+import { ICatalog, IVacancy } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
-import fetchCatalogAsync from "@/store/actions/filter-actions";
-import { getAuthorization, getVacancies } from "@/helpers/fetchers";
+import { getAuthorization, getCatalog, getVacancies } from "@/helpers/fetchers";
+import { setCatalog } from "@/store/slices/filter-slice";
 
 export async function getStaticProps() {
-  const accessToken = await getAuthorization() || '';
-
-  const vacancies = await getVacancies(accessToken) || ''
-
-  // if (!vacancies && !accessToken) {
-  //   return { notFound: true };
-  // }
+  const accessToken = await getAuthorization() || "";
+  const vacancies = await getVacancies({ accessToken }) || [];
+  const catalog = await getCatalog({ accessToken }) || [];
 
   return {
-    props: { vacancies, accessToken },
+    props: { accessToken, vacancies, catalog },
   };
 }
 
 interface HomeProps {
-  vacancies: IVacancy[];
   accessToken: string;
+  vacancies: IVacancy[];
+  catalog: ICatalog[];
 }
 
-
-const Home: FC<HomeProps> = ({ accessToken, vacancies }) => {
-  console.log(vacancies);
+const Home: FC<HomeProps> = ({ accessToken, vacancies, catalog }) => {
   const dispatch = useDispatchTyped();
 
   useEffect(() => {
+    console.log('accessToken', accessToken);
+    console.log('vacancies', vacancies);
+    console.log('catalog', catalog);
+    
     localStorage.setItem("Access", accessToken);
-    dispatch(fetchCatalogAsync());
+    dispatch(setCatalog(catalog));
+    // TODO: dispatch vacancies action
   }, []);
 
   return (

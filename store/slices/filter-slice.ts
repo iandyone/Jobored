@@ -36,38 +36,29 @@ const filterSlice = createSlice({
       state.to = action.payload;
     },
 
+    setCatalog(state, action: PayloadAction<ICatalog[]>) {
+      state.catalog = action.payload;
+    },
+
     resetFilters(state) {
       state.category = initialState.category;
       state.from = initialState.from;
       state.to = initialState.to;
     },
   },
-  extraReducers: {
-    [fetchCatalogAsync.fulfilled.type]: (state, action: PayloadAction<ICatalog[]>) => {
-      state.error = "";
-      state.catalog = action.payload;
-    },
+  // extraReducers: {
+  //   [fetchCatalogAsync.fulfilled.type]: (state, action: PayloadAction<ICatalog[]>) => {
+  //     state.error = "";
+  //     state.catalog = action.payload;
+  //   },
 
-    [fetchCatalogAsync.rejected.type]: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
-      state.catalog = [];
-    },
-    
-    // [fetchUsersAsync.fulfilled.type]: (state, action: PayloadAction<IUser[]>) => {
-    //     state.users = action.payload;
-    //     state.isLoading = false;
-    //     state.error = '';
-    // },
-    // [fetchUsersAsync.pending.type]: (state) => {
-    //     state.isLoading = true;
-    // },
-    // [fetchUsersAsync.rejected.type]: (state, action: PayloadAction<string>) => {
-    //     state.isLoading = false;
-    //     state.users = [];
-    //     state.error = action.payload;
-    // }
-  },
+  //   [fetchCatalogAsync.rejected.type]: (state, action: PayloadAction<string>) => {
+  //     state.error = action.payload;
+  //     state.catalog = [];
+  //   },
+  // },
+
 });
 
 export default filterSlice.reducer;
-export const { setCategory, setMaxSalaryValue, setMinSalaryValue, resetFilters } = filterSlice.actions;
+export const { setCategory, setMaxSalaryValue, setMinSalaryValue, setCatalog, resetFilters } = filterSlice.actions;
