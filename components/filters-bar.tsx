@@ -3,7 +3,7 @@ import { useDispatchTyped } from "@/hooks/redux";
 import { resetFilters } from "@/store/slices/filter-slice";
 import styles from "../styles/filtersBar.module.scss";
 import Select from "./select";
-import Input from "./input";
+import SalaryInput from "./salary-input";
 import Heading from "./heading";
 import Button from "./button";
 
@@ -30,8 +30,8 @@ const FiltersBar: FC = () => {
       </article>
       <article className={styles.salary}>
         <Heading className={styles.salary__title} tag='h3' text='Оклад' />
-        <Input placeholder='От' salaryType='min' />
-        <Input placeholder='До' salaryType='max' />
+        <SalaryInput placeholder='От' salaryType='min' />
+        <SalaryInput placeholder='До' salaryType='max' />
       </article>
       <Button className={styles.filters__button} text='Применить' />
     </div>

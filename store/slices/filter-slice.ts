@@ -6,9 +6,10 @@ type ISalary = number | string;
 interface filtersState {
   categories: ICategory[];
   category: string;
+  error: string;
   from: ISalary;
   to: ISalary;
-  error: string;
+  title: string;
 }
 
 const initialState: filtersState = {
@@ -17,6 +18,7 @@ const initialState: filtersState = {
   from: "",
   to: "",
   error: "",
+  title: "",
 };
 
 const filterSlice = createSlice({
@@ -44,20 +46,12 @@ const filterSlice = createSlice({
       state.from = initialState.from;
       state.to = initialState.to;
     },
+
+    setTitle(state, action: PayloadAction<string>) {
+      state.title = action.payload;
+    },
   },
-  // extraReducers: {
-  //   [fetchCatalogAsync.fulfilled.type]: (state, action: PayloadAction<ICatalog[]>) => {
-  //     state.error = "";
-  //     state.catalog = action.payload;
-  //   },
-
-  //   [fetchCatalogAsync.rejected.type]: (state, action: PayloadAction<string>) => {
-  //     state.error = action.payload;
-  //     state.catalog = [];
-  //   },
-  // },
-
 });
 
 export default filterSlice.reducer;
-export const { setCategory, setCatalog, setMaxSalaryValue, setMinSalaryValue, resetFilters } = filterSlice.actions;
+export const { setCategory, setCatalog, setMaxSalaryValue, setMinSalaryValue, resetFilters, setTitle } = filterSlice.actions;

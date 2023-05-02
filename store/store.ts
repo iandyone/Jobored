@@ -1,10 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filters from "./slices/filter-slice";
+import filtersReducer from "./slices/filter-slice";
+import { vacanciesApi } from "./api/vacancies-api";
 
 const store = configureStore({
   reducer: {
-    filters,
+    filters: filtersReducer,
+    [vacanciesApi.reducerPath]: vacanciesApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(vacanciesApi.middleware);
+}
 });
 
 export default store;

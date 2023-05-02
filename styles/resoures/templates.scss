@@ -8,6 +8,34 @@
   line-height: 20px;
 }
 
+%input {
+  width: 100%;
+  height: 42px;
+  font-size: 14px;
+  line-height: 143%;
+  color: $black;
+  display: flex;
+  align-items: center;
+  background: $white;
+  border: 1px solid $gray300;
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: $transition;
+
+  &::-webkit-input-placeholder {
+    color: $gray500;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
+  &:hover, &:focus {
+    border: 1px solid #5e96fc;
+    transition: $transition;
+  }
+}
+
 %button {
   display: flex;
   justify-content: center;

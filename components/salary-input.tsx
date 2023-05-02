@@ -1,14 +1,14 @@
 import { FC, ChangeEvent, MouseEvent } from "react";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setMaxSalaryValue, setMinSalaryValue } from "@/store/slices/filter-slice";
-import styles from "../styles/input.module.scss";
+import styles from "../styles/salary-input.module.scss";
 
-interface InputProps {
+interface SalaryInputProps {
   placeholder?: string;
   salaryType: `min` | "max";
 }
 
-const Input: FC<InputProps> = ({ placeholder, salaryType }) => {
+const SalaryInput: FC<SalaryInputProps> = ({ placeholder, salaryType }) => {
   const { from: minSalary, to: maxSalary } = useSelectorTyped((store) => store.filters);
   const value = salaryType === "min" ? minSalary : maxSalary;
   const dispatch = useDispatchTyped();
@@ -48,4 +48,4 @@ const Input: FC<InputProps> = ({ placeholder, salaryType }) => {
   );
 };
 
-export default Input;
+export default SalaryInput;
