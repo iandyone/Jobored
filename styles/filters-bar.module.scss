@@ -2,17 +2,18 @@
 @import "./resoures/templates.scss";
 
 .filters {
-  width: 315px;
   background: $white;
   border: 1px solid $gray200;
   border-radius: 12px;
   padding: 20px;
   height: 360px;
+  flex: 0 1 315px;
+  min-width: 280px;
 
   &__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     margin-bottom: 32px;
   }
 
@@ -28,6 +29,12 @@
     justify-content: center;
     align-items: center;
 
+    span {
+      display: inline-block;
+      height: 16px;
+
+    }
+   
     &:hover {
       cursor: pointer;
       transition: $transition;

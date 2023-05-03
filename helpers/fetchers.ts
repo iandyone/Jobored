@@ -29,7 +29,7 @@ export async function getAuthorization() {
 
 export async function getVacancies({ page = 1, count = 4, accessToken = "" }) {
   try {
-    const token = accessToken || localStorage.getItem("Access");
+    const token = accessToken || localStorage.getItem("access");
     const vacanciesResponse = await axios.get<VacancyResponse>("/vacancies", {
       params: { page, count },
       headers: { Authorization: token, "x-secret-key": "GEU4nvd3rej*jeh.eqp" },

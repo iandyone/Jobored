@@ -12,23 +12,25 @@ interface handlerPageChangeProps {
 const VacanciesBar: FC = () => {
   const [pagesCounter, setPagesCount] = useState(125);
   const [currentPage, setCurrentPage] = useState(1);
-  const { isError, isFetching, isLoading, isSuccess, data: vacancies } = vacanciesApi.useFetchVacanciesQuery(currentPage);
+  const { isError, isFetching, isLoading, isSuccess, data } = vacanciesApi.useFetchVacanciesQuery(currentPage);
+  const vacancies = data ? data.objects : new Array(4);
+  const loading = isFetching || isLoading;
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {
     setCurrentPage(selected + 1);
   }
 
   useEffect(() => {
-    console.log(vacancies);
+    // console.log(vacancies);
   });
 
   return (
     <section className={styles.vacancies}>
       <SearchInput placeholder='Введите название вакансии' />
       <div className={styles.vacancies__list}>
-        {vacancies && !isFetching && Array.from(vacancies.objects).map((vacancy) => {
-            return <Vacancy vacancy={vacancy} key={vacancy.id} loading={isFetching} />;
-          })}
+        {vacancies.map((vacancy) => {
+          return <Vacancy vacancy={vacancy} key={vacancy.id} loading={loading} />;
+        })}
       </div>
       <div className={styles.vacancies__paginate}>
         <ReactPaginate
@@ -48,7 +50,6 @@ const VacanciesBar: FC = () => {
           disabledClassName={`${styles.vacancies__page} ${styles.disabled}`}
         />
       </div>
-      <div>{isFetching && <h1>LOADING...</h1>}</div>
     </section>
   );
 };

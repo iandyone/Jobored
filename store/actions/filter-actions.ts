@@ -9,7 +9,7 @@ const fetchCatalogAsync = createAsyncThunk(`fetchCatalog`, async (_, thunkAPI) =
   try {
     const response = await axios.get<ICatalog[]>("/catalogues", {
       headers: {
-        Authorization: localStorage.getItem("Access"),
+        Authorization: localStorage.getItem("access"),
       },
     });
 

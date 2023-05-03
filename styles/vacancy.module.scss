@@ -10,9 +10,16 @@
   border-radius: 12px;
   padding: 24px;
   transition: $transition;
-  
+  height: 138px;
+  overflow: hidden;
+
+  &.loading {
+    transition: $transition;
+    background: greenyellow;
+  }
+
   &:hover {
-    cursor:pointer;
+    cursor: pointer;
     box-shadow: $shadow;
     transition: $transition;
   }
@@ -48,7 +55,7 @@
 
     span {
       padding-left: 28px;
-      background: url('../public/location.svg') left center no-repeat;
+      background: url("../public/location.svg") left center no-repeat;
     }
   }
 }
@@ -61,16 +68,34 @@
   line-height: calc(24 / 20 * 100%);
   color: $blue500;
   column-gap: 20px;
- 
-
+  position: relative;
 
   &__text {
-    // display: inline-block;
-    // overflow: hidden;
-    // white-space: nowrap;
-    // text-overflow: ellipsis;
-    // width: 100%;
-    // max-width: 100%;
+    overflow: hidden;
+
+    span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+      max-width: 685px;
+
+      @media (max-width: 1160px) {
+        max-width: 58vw;
+      }
+
+      @media (max-width: 1050px) {
+        max-width: 55vw;
+      }
+
+      @media (max-width: 980px) {
+        max-width: 50vw;
+      }
+
+      @media (max-width: 870px) {
+        max-width: 45vw;
+      }
+    }
   }
 
   &__icon {

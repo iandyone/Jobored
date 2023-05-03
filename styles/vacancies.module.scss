@@ -27,8 +27,6 @@
   }
 
   &__page {
-    // width: 32px;
- 
     min-width: 32px;
     height: 32px;
     background: $white;
@@ -38,7 +36,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: $transition;
+    // transition: $transition;
 
     a {
       display: flex;
@@ -57,7 +55,7 @@
 
     &.active {
       background: $blue500;
-      transition: $transition;
+      // transition: $transition;
       color: $white;
     }
 
@@ -65,7 +63,7 @@
       background: $white;
       border: 1px solid $gray200;
       color: $gray300;
-      transition: $transition;
+      // transition: $transition;
     }
   }
 }
