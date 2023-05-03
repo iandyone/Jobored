@@ -1,11 +1,9 @@
 @import "./resoures/variables.scss";
+@import "./resoures/templates.scss";
 
 .header {
   background-color: $white;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // position: relative;
+
 
   &__container {
     position: relative;
@@ -44,9 +42,6 @@
   }
 
   &__link {
-    font-family: "Inter";
-    font-size: 16px;
-    line-height: 20px;
-    color: $black;
+    @extend %text;
   }
 }

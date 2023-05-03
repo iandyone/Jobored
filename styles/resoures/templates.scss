@@ -30,7 +30,8 @@
     margin-bottom: 8px;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border: 1px solid #5e96fc;
     transition: $transition;
   }
@@ -46,14 +47,22 @@
   color: $white;
   width: 100%;
   transition: $transition;
-  
+
   &:hover {
     transition: $transition;
     background-color: $blue400;
   }
-  
+
   &:active {
     transition: $transition;
     background-color: $blue600;
   }
+}
+
+%text {
+  font-family: $Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 125%;
+  color: $black;
 }

@@ -29,9 +29,10 @@ export async function getAuthorization() {
 
 export async function getVacancies({ page = 1, count = 4, accessToken = "" }) {
   try {
+    const token = accessToken || localStorage.getItem("Access");
     const vacanciesResponse = await axios.get<VacancyResponse>("/vacancies", {
       params: { page, count },
-      headers: { Authorization: accessToken, "x-secret-key": "GEU4nvd3rej*jeh.eqp" },
+      headers: { Authorization: token, "x-secret-key": "GEU4nvd3rej*jeh.eqp" },
     });
 
     if (vacanciesResponse.status == 200) {
@@ -50,9 +51,7 @@ export async function getVacancies({ page = 1, count = 4, accessToken = "" }) {
 export async function getCatalog({ accessToken = "" }) {
   try {
     const catalotResponse = await axios.get<ICatalog[]>("/catalogues", {
-      headers: {
-        Authorization: accessToken,
-      },
+      headers: { Authorization: accessToken },
     });
 
     if (catalotResponse.status == 200) {

@@ -1,6 +1,71 @@
+@import "./resoures/variables.scss";
+
 .vacancies {
   width: 100%;
   max-width: 775px;
   display: flex;
   flex-direction: column;
-} 
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  &__paginate {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__pages {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 8px;
+    margin: 0px auto;
+  }
+
+  &__page {
+    // width: 32px;
+ 
+    min-width: 32px;
+    height: 32px;
+    background: $white;
+    border: 1px solid $gray300;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: $transition;
+
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      padding: 8px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      border-color: $blue500;
+      transition: $transition;
+    }
+
+    &.active {
+      background: $blue500;
+      transition: $transition;
+      color: $white;
+    }
+
+    &.disabled {
+      background: $white;
+      border: 1px solid $gray200;
+      color: $gray300;
+      transition: $transition;
+    }
+  }
+}

@@ -1,0 +1,89 @@
+@import "./resoures/variables.scss";
+@import "./resoures/templates.scss";
+
+.vacancy {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  background: $white;
+  border: 1px solid $gray200;
+  border-radius: 12px;
+  padding: 24px;
+  transition: $transition;
+  
+  &:hover {
+    cursor:pointer;
+    box-shadow: $shadow;
+    transition: $transition;
+  }
+
+  &__description {
+    display: flex;
+    column-gap: 33px;
+  }
+
+  &__condition {
+    @extend %text;
+
+    &.salary {
+      font-weight: 600;
+      position: relative;
+
+      &::before {
+        content: "•";
+        font-family: $Poppins;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 105%;
+        color: $gray600;
+        position: absolute;
+        right: -20px;
+        top: 0%;
+      }
+    }
+  }
+
+  &__location {
+    @extend %text;
+
+    span {
+      padding-left: 28px;
+      background: url('../public/location.svg') left center no-repeat;
+    }
+  }
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: calc(24 / 20 * 100%);
+  color: $blue500;
+  column-gap: 20px;
+ 
+
+
+  &__text {
+    // display: inline-block;
+    // overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    // width: 100%;
+    // max-width: 100%;
+  }
+
+  &__icon {
+    width: 22px;
+    height: 22px;
+    fill: $gray500;
+    transition: $transition;
+
+    &:hover {
+      fill: $blue500;
+      transition: $transition;
+      cursor: pointer;
+      stroke: $blue500;
+    }
+  }
+}

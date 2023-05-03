@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useDispatchTyped } from "@/hooks/redux";
 import { resetFilters } from "@/store/slices/filter-slice";
-import styles from "../styles/filtersBar.module.scss";
+import styles from "../styles/filters-bar.module.scss";
 import Select from "./select";
 import SalaryInput from "./salary-input";
 import Heading from "./heading";
@@ -11,7 +11,7 @@ const FiltersBar: FC = () => {
   const dispatch = useDispatchTyped();
 
   return (
-    <div className={styles.filters}>
+    <aside className={styles.filters}>
       <div className={styles.filters__header}>
         <Heading className={styles.filters__title} tag='h2' text='Фильтры' />
         <div className={styles.filters__reset} onClick={() => dispatch(resetFilters())}>
@@ -34,7 +34,7 @@ const FiltersBar: FC = () => {
         <SalaryInput placeholder='До' salaryType='max' />
       </article>
       <Button className={styles.filters__button} text='Применить' />
-    </div>
+    </aside>
   );
 };
 
