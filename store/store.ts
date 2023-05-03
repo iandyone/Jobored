@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filtersReducer from "./slices/filter-slice";
 import { vacanciesApi } from "./api/vacancies-api";
+import filtersReducer from "./slices/filter-slice";
 
 const store = configureStore({
   reducer: {
@@ -12,7 +12,7 @@ const store = configureStore({
 }
 });
 
-export default store;
-
 export type StoreType = ReturnType<typeof store.getState>;
 export type DispatchType = typeof store.dispatch;
+
+export default store;

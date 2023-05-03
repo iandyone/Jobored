@@ -37,8 +37,8 @@ export interface IVacancy {
   profession: string;
   firm_name: string;
   town: {
-    title: string;
     id: number;
+    title: string;
   };
   catalogues: {
     0: {

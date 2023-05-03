@@ -1,8 +1,5 @@
-import { IVacancy, VacancyResponse } from "@/types";
+import { VacancyResponse } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-
-
 
 export const vacanciesApi = createApi({
   baseQuery: fetchBaseQuery({
