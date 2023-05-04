@@ -7,6 +7,7 @@ import { ICategory, IVacancy } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
 import { getAuthorization, getCatalog, getVacancies } from "@/helpers/fetchers";
 import { setCatalog } from "@/store/slices/filter-slice";
+import { VacancyResponse } from "@/types";
 
 export async function getStaticProps() {
   const accessToken = await getAuthorization() || "";
@@ -20,7 +21,7 @@ export async function getStaticProps() {
 
 interface HomeProps {
   accessToken: string;
-  vacancies: IVacancy[];
+  vacancies: VacancyResponse;
   categories: ICategory[];
 }
 
@@ -30,9 +31,6 @@ const Home: FC<HomeProps> = ({ accessToken, vacancies, categories }) => {
   useEffect(() => {
     localStorage.setItem("access", accessToken);
     dispatch(setCatalog(categories));
-    console.log(vacancies);
-    
-    // TODO: dispatch vacancies action
   }, []);
 
   return (
@@ -47,7 +45,7 @@ const Home: FC<HomeProps> = ({ accessToken, vacancies, categories }) => {
         <div className={`${styles.jobs__container} container`}>
           <div className={styles.jobs__body}>
             <FiltersBar />
-            <VacanciesBar />
+            <VacanciesBar vacancies={Array.from(vacancies.objects)}/>
           </div>
         </div>
       </main>

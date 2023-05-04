@@ -4,17 +4,30 @@ import styles from "../styles/vacancies.module.scss";
 import ReactPaginate from "react-paginate";
 import SearchInput from "./search-input";
 import Vacancy from "./vacancy";
+import { IVacancy } from "@/types";
 
 interface handlerPageChangeProps {
   selected: number;
 }
 
-const VacanciesBar: FC = () => {
+interface VacanciesBarProps {
+  vacancies: IVacancy[];
+}
+
+const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
   const [pagesCounter, setPagesCount] = useState(125);
   const [currentPage, setCurrentPage] = useState(1);
-  const { isError, isFetching, isLoading, isSuccess, data } = vacanciesApi.useFetchVacanciesQuery(currentPage);
-  const vacancies = data ? data.objects : new Array(4);
+  const { isError, isFetching, isLoading, isSuccess, data } = vacanciesApi.useFetchVacanciesQuery(currentPage, { skip: currentPage === 1 });
+  const vacancies = getVacansies();
   const loading = isFetching || isLoading;
+
+  function getVacansies() {
+    if (currentPage === 1) {
+      return startVacancies;
+    }
+
+    return data ? data.objects : startVacancies;
+  }
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {
     setCurrentPage(selected + 1);
