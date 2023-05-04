@@ -11,8 +11,8 @@ import { VacancyResponse } from "@/types";
 
 export async function getStaticProps() {
   const accessToken = await getAuthorization() || "";
-  const vacancies = await getVacancies({ accessToken }) || [];
-  const categories = await getCatalog({ accessToken }) || [];
+  const vacancies = await getVacancies({}) || [];
+  const categories = await getCatalog() || [];
 
   return {
     props: { accessToken, vacancies, categories },
@@ -45,7 +45,7 @@ const Home: FC<HomeProps> = ({ accessToken, vacancies, categories }) => {
         <div className={`${styles.jobs__container} container`}>
           <div className={styles.jobs__body}>
             <FiltersBar />
-            <VacanciesBar vacancies={Array.from(vacancies.objects)}/>
+            <VacanciesBar vacancies={Array.from(vacancies.objects)} />
           </div>
         </div>
       </main>

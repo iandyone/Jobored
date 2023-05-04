@@ -34,7 +34,7 @@ const Vacancy: FC<IVacancyProps> = ({ loading, vacancy }) => {
   }
 
   function vacancyOnClick() {
-    router.push(`/vacancy/${vacancy!.id}`);
+    router.push(`/vacancies/${vacancy!.id}`);
   }
 
   if (loading) {

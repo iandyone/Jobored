@@ -1,9 +1,9 @@
-import axios from "@/axios";
-import { IAuthResponse, ICatalog, VacancyResponse } from "@/types";
+import $axios from "@/axios";
+import { IAuthResponse, ICatalog, IVacancy, VacancyResponse } from "@/types";
 
 export async function getAuthorization() {
   try {
-    const authResponse = await axios.get<IAuthResponse>("/oauth2/password", {
+    const authResponse = await $axios.get<IAuthResponse>("/oauth2/password", {
       params: {
         login: "sergei.stralenia@gmail.com",
         password: "paralect123",
@@ -15,6 +15,11 @@ export async function getAuthorization() {
 
     if (authResponse.status == 200) {
       const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
+      $axios.interceptors.request.use((config) => {
+        config.headers.Authorization = accessToken;
+        return config;
+      });
+
       return accessToken;
     }
 
@@ -27,12 +32,10 @@ export async function getAuthorization() {
   }
 }
 
-export async function getVacancies({ page = 1, count = 4, accessToken = "" }) {
+export async function getVacancies({ page = 1, count = 4 }) {
   try {
-    const token = accessToken || localStorage.getItem("access");
-    const vacanciesResponse = await axios.get<VacancyResponse>("/vacancies", {
+    const vacanciesResponse = await $axios.get<VacancyResponse>("/vacancies", {
       params: { page, count },
-      headers: { Authorization: token, "x-secret-key": "GEU4nvd3rej*jeh.eqp" },
     });
 
     if (vacanciesResponse.status == 200) {
@@ -48,11 +51,9 @@ export async function getVacancies({ page = 1, count = 4, accessToken = "" }) {
   }
 }
 
-export async function getCatalog({ accessToken = "" }) {
+export async function getCatalog() {
   try {
-    const catalotResponse = await axios.get<ICatalog[]>("/catalogues", {
-      headers: { Authorization: accessToken },
-    });
+    const catalotResponse = await $axios.get<ICatalog[]>("/catalogues", {});
 
     if (catalotResponse.status == 200) {
       const categories =
