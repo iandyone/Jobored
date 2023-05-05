@@ -77,7 +77,11 @@
   overflow: hidden;
 
   &.loading {
-    transition: $transition;
-    background: greenyellow;
+    @extend %loading;
   }
+}
+
+%loading {
+  transition: $transition;
+  background: greenyellow;
 }

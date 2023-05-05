@@ -9,10 +9,10 @@ const Navbar: FC = () => {
   return (
     <nav className={styles.navigation}>
       <ul className={styles.navigation__links}>
-        <li className={!pathname.includes("favorites") ? `${styles.navigation__link} ${styles.active}` : styles.navigation__link}>
+        <li className={`${styles.navigation__link} ${!pathname.includes("favorites") && styles.active}`}>
           <Link href='/'>Поиск Вакансий</Link>
         </li>
-        <li className={pathname.includes("favorites") ? `${styles.navigation__link} ${styles.active}` : styles.navigation__link}>
+        <li className={`${styles.navigation__link} ${pathname.includes("favorites") && styles.active}`}>
           <Link href='/favorites'>Избранное</Link>
         </li>
       </ul>

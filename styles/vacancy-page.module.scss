@@ -33,6 +33,12 @@
 
   &__description {
     @extend %content;
+
+    &.loading {
+      @extend %loading;
+      height: 500px;
+    }
+
     & > *:first-child {
       &,
       & > * {
@@ -48,7 +54,7 @@
       }
     }
 
-    br {
+    br  br {
       display: none;
     }
 
@@ -56,7 +62,8 @@
       line-height: 140%;
 
       b {
-        margin-top: 20px;
+        // margin-top: 20px;
+        margin-bottom: 16px;
       }
     }
 
@@ -66,15 +73,16 @@
       font-size: 20px;
       line-height: 100%;
       color: $black;
+      margin-bottom: 16px;
     }
 
-    ul ~ p {
+    ul ~ p, ol ~ p {
       display: inline-block;
       line-height: 100%;
       color: $black;
     }
 
-    ul {
+    ul, ol {
       margin-top: 16px;
       margin-bottom: 16px;
 
