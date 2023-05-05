@@ -66,3 +66,19 @@
   line-height: 125%;
   color: $black;
 }
+
+%content {
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  border: 1px solid $gray200;
+  border-radius: 12px;
+  padding: 24px;
+  transition: $transition;
+  overflow: hidden;
+
+  &.loading {
+    transition: $transition;
+    background: greenyellow;
+  }
+}

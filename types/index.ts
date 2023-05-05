@@ -26,11 +26,13 @@ export interface IAuthResponse {
   token_type: string;
 }
 
-export interface VacancyResponse {
+export interface VacanciesResponse {
   more: boolean;
   objects: IVacancy[];
   total: number;
 }
+
+
 
 export interface IVacancy {
   id: number;
@@ -52,4 +54,5 @@ export interface IVacancy {
   payment_to: number;
   payment_from: number;
   currency: string;
+  vacancyRichText: string;
 }

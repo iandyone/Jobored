@@ -1,5 +1,5 @@
 import $axios from "@/axios";
-import { IAuthResponse, ICatalog, IVacancy, VacancyResponse } from "@/types";
+import { IAuthResponse, ICatalog, VacanciesResponse } from "@/types";
 
 export async function getAuthorization() {
   try {
@@ -13,7 +13,7 @@ export async function getAuthorization() {
       },
     });
 
-    if (authResponse.status == 200) {
+    if (authResponse.status === 200) {
       const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
       $axios.interceptors.request.use((config) => {
         config.headers.Authorization = accessToken;
@@ -23,7 +23,7 @@ export async function getAuthorization() {
       return accessToken;
     }
 
-    if (authResponse.status == 500) {
+    if (authResponse.status === 500) {
       return "";
     }
   } catch (error) {
@@ -34,15 +34,15 @@ export async function getAuthorization() {
 
 export async function getVacancies({ page = 1, count = 4 }) {
   try {
-    const vacanciesResponse = await $axios.get<VacancyResponse>("/vacancies", {
+    const vacanciesResponse = await $axios.get<VacanciesResponse>("/vacancies", {
       params: { page, count },
     });
 
-    if (vacanciesResponse.status == 200) {
+    if (vacanciesResponse.status === 200) {
       return vacanciesResponse.data;
     }
 
-    if (vacanciesResponse.status == 500) {
+    if (vacanciesResponse.status === 500) {
       return [];
     }
   } catch (error) {
@@ -55,7 +55,7 @@ export async function getCatalog() {
   try {
     const catalotResponse = await $axios.get<ICatalog[]>("/catalogues", {});
 
-    if (catalotResponse.status == 200) {
+    if (catalotResponse.status === 200) {
       const categories =
         catalotResponse.data.map((category) => {
           return { id: category.key, title: category.title_trimmed };
@@ -64,11 +64,27 @@ export async function getCatalog() {
       return categories;
     }
 
-    if (catalotResponse.status == 500) {
+    if (catalotResponse.status === 500) {
       return [];
     }
   } catch (error) {
     console.log(error);
     return [];
+  }
+}
+
+export async function getVacancy({ id = "" }) {
+  try {
+    const VacanciesResponse = await $axios.get(`vacancies/${id}`);
+
+    if (VacanciesResponse.status === 200) {
+      return VacanciesResponse.data;
+    }
+
+    if (VacanciesResponse.status === 500) {
+      return [];
+    }
+  } catch (error) {
+    console.log(error);
   }
 }

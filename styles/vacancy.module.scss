@@ -2,27 +2,16 @@
 @import "./resoures/templates.scss";
 
 .vacancy {
-  display: flex;
-  flex-direction: column;
+  @extend %content;
   row-gap: 12px;
-  background: $white;
-  border: 1px solid $gray200;
-  border-radius: 12px;
-  padding: 24px;
-  transition: $transition;
   height: 138px;
-  overflow: hidden;
-
-  &.loading {
-    transition: $transition;
-    background: greenyellow;
-  }
 
   &:hover {
     cursor: pointer;
     box-shadow: $shadow;
     transition: $transition;
   }
+
 
   &__description {
     display: flex;
@@ -79,6 +68,7 @@
       text-overflow: ellipsis;
       display: inline-block;
       max-width: 685px;
+      height: 100%;
 
       @media (max-width: 1160px) {
         max-width: 58vw;

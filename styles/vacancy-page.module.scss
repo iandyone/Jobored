@@ -1,0 +1,83 @@
+@import "./resoures/variables.scss";
+@import "./resoures/templates.scss";
+
+.vacancy {
+  padding: 40px 0px;
+
+  &__container {
+    max-width: 773px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+    & > *:hover {
+      box-shadow: none;
+      cursor: auto;
+    }
+  }
+
+  &__card {
+    height: 158px;
+    row-gap: 16px !important;
+  }
+
+  &__title {
+    color: $black !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+  }
+
+  &__text {
+    font-size: 20px !important;
+  }
+
+  &__description {
+    @extend %content;
+
+    p {
+      line-height: 140%;
+
+      b {
+        margin-top: 20px;
+      }
+    }
+
+    b {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 100%;
+      color: $black;
+      // margin-bottom: 16px;
+
+      &:not(:first-child) {
+        // margin-top: 20px;
+      }
+    }
+
+    ul ~ p {
+      display: inline-block;
+      // font-weight: 700;
+      // font-size: 20px;
+      line-height: 100%;
+      color: $black;
+
+      &:not(:first-child) {
+        // margin-top: 20px;
+      }
+    }
+
+    ul {
+      margin-top: 16px;
+      margin-bottom: 16px;
+
+      & > li {
+        list-style: disc;
+        margin-left: 20px;
+        line-height: 140%;
+      }
+    }
+  }
+}
+
+// #__next > div > div > div > div > p:nth-child(4)

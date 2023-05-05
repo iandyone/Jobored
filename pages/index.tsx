@@ -7,7 +7,7 @@ import { ICategory, IVacancy } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
 import { getAuthorization, getCatalog, getVacancies } from "@/helpers/fetchers";
 import { setCatalog } from "@/store/slices/filter-slice";
-import { VacancyResponse } from "@/types";
+import { VacanciesResponse } from "@/types";
 
 export async function getStaticProps() {
   const accessToken = await getAuthorization() || "";
@@ -21,7 +21,7 @@ export async function getStaticProps() {
 
 interface HomeProps {
   accessToken: string;
-  vacancies: VacancyResponse;
+  vacancies: VacanciesResponse;
   categories: ICategory[];
 }
 

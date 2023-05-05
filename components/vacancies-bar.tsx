@@ -5,6 +5,8 @@ import ReactPaginate from "react-paginate";
 import SearchInput from "./search-input";
 import Vacancy from "./vacancy";
 import { IVacancy } from "@/types";
+import { useDispatchTyped } from "@/hooks/redux";
+import { setVacancies } from "@/store/slices/vacancies-slice";
 
 interface handlerPageChangeProps {
   selected: number;
@@ -18,15 +20,20 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
   const [pagesCounter, setPagesCount] = useState(125);
   const [currentPage, setCurrentPage] = useState(1);
   const { isError, isFetching, isLoading, isSuccess, data } = vacanciesApi.useFetchVacanciesQuery(currentPage, { skip: currentPage === 1 });
-  const vacancies = getVacansies();
   const loading = isFetching || isLoading;
+  const dispatch = useDispatchTyped();
+  const vacancies = getVacansies();
 
   function getVacansies() {
     if (currentPage === 1) {
+      dispatch(setVacancies(startVacancies));
       return startVacancies;
     }
 
-    return data ? data.objects : startVacancies;
+    const vacancies = data ? data.objects : startVacancies;
+    dispatch(setVacancies(vacancies));
+
+    return vacancies;
   }
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {
