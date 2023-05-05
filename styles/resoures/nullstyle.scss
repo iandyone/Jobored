@@ -1,7 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:regular);
-@import url(https://fonts.googleapis.com/css?family=Inter:regular,500,600,700);
-@import url(https://fonts.googleapis.com/css?family=Poppins:regular,600);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:regular);
+// @import url(https://fonts.googleapis.com/css?family=Roboto:regular);
+// @import url(https://fonts.googleapis.com/css?family=Poppins:regular,600);
+// @import url(https://fonts.googleapis.com/css?family=Open+Sans:regular);
 
 @import "./variables.scss";
 @import "./templates.scss";
@@ -37,7 +36,6 @@ body {
     font-size: 100%;
     line-height: 1;
     font-weight: 400;
-    font-family: $Inter;
     background-color: $gray;
     color: $black;
     scroll-behavior: smooth;
@@ -45,7 +43,6 @@ body {
 
 body {
     height: auto;
-    // position: relative;
 }
 
 input,
