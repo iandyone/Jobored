@@ -33,6 +33,24 @@
 
   &__description {
     @extend %content;
+    & > *:first-child {
+      &,
+      & > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    & > *:last-child {
+      & > * {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    br {
+      display: none;
+    }
 
     p {
       line-height: 140%;
@@ -48,28 +66,21 @@
       font-size: 20px;
       line-height: 100%;
       color: $black;
-      // margin-bottom: 16px;
-
-      &:not(:first-child) {
-        // margin-top: 20px;
-      }
     }
 
     ul ~ p {
       display: inline-block;
-      // font-weight: 700;
-      // font-size: 20px;
       line-height: 100%;
       color: $black;
-
-      &:not(:first-child) {
-        // margin-top: 20px;
-      }
     }
 
     ul {
       margin-top: 16px;
       margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       & > li {
         list-style: disc;
@@ -79,5 +90,3 @@
     }
   }
 }
-
-// #__next > div > div > div > div > p:nth-child(4)
