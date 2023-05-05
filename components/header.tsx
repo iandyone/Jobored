@@ -11,7 +11,7 @@ const Header: FC = () => {
       <div className={styles.header__container + ' container'}>
         <div className={styles.header__body}>
           <div className={styles.header__logo}>
-            <Link href='/' as='image'>
+            <Link href='/'>
               <Image alt='logo.svg' src={logo} priority />
             </Link>
           </div>

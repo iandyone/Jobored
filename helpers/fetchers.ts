@@ -1,26 +1,26 @@
 import $axios from "@/axios";
-import { IAuthResponse, ICatalog, VacanciesResponse } from "@/types";
+import { IAuthResponse, ICatalog, IVacancy, VacanciesResponse } from "@/types";
+
+const login = "sergei.stralenia@gmail.com";
+const password = "paralect123";
+const client_secret = "v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948";
+const client_id = 2356;
 
 export async function getAuthorization() {
   try {
     const authResponse = await $axios.get<IAuthResponse>("/oauth2/password", {
-      params: {
-        login: "sergei.stralenia@gmail.com",
-        password: "paralect123",
-        client_secret: "v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948",
-        client_id: 2356,
-        hr: 0,
-      },
+      params: { login, password, client_secret, client_id, hr: 0 },
     });
 
     if (authResponse.status === 200) {
       const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
+      const refreshToken = `${authResponse.data.token_type} ${authResponse.data.refresh_token}`;
       $axios.interceptors.request.use((config) => {
         config.headers.Authorization = accessToken;
         return config;
       });
 
-      return accessToken;
+      return { accessToken, refreshToken };
     }
 
     if (authResponse.status === 500) {
@@ -75,7 +75,7 @@ export async function getCatalog() {
 
 export async function getVacancy({ id = "" }) {
   try {
-    const VacanciesResponse = await $axios.get(`vacancies/${id}`);
+    const VacanciesResponse = await $axios.get<IVacancy>(`vacancies/${id}`);
 
     if (VacanciesResponse.status === 200) {
       return VacanciesResponse.data;
@@ -83,6 +83,28 @@ export async function getVacancy({ id = "" }) {
 
     if (VacanciesResponse.status === 500) {
       return [];
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateAuthTokens() {
+  try {
+    const refreshToken = localStorage.getItem("refresh");
+    const updateResponse = await $axios.get<IAuthResponse>(`/refresh_token`, {
+      params: { client_id, client_secret, refresh_token: refreshToken },
+    });
+
+    if (updateResponse.status === 200) {
+      const accessToken = `${updateResponse.data.token_type} ${updateResponse.data.access_token}`;
+      const refreshToken = `${updateResponse.data.token_type} ${updateResponse.data.refresh_token}`;
+      return {accessToken, refreshToken}
+    }
+
+    if (updateResponse.status === 500) {
+      const message = "Возникла ошибка при обновлении токенов доступа";
+      console.log(message);
     }
   } catch (error) {
     console.log(error);

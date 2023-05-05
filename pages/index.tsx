@@ -10,27 +10,33 @@ import { setCatalog } from "@/store/slices/filter-slice";
 import { VacanciesResponse } from "@/types";
 
 export async function getStaticProps() {
-  const accessToken = await getAuthorization() || "";
-  const vacancies = await getVacancies({}) || [];
-  const categories = await getCatalog() || [];
+  const tokens = (await getAuthorization()) || "";
+  const vacancies = (await getVacancies({})) || [];
+  const categories = (await getCatalog()) || [];
 
   return {
-    props: { accessToken, vacancies, categories },
+    props: { tokens, vacancies, categories },
   };
 }
 
 interface HomeProps {
-  accessToken: string;
   vacancies: VacanciesResponse;
   categories: ICategory[];
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
 }
 
-const Home: FC<HomeProps> = ({ accessToken, vacancies, categories }) => {
+const Home: FC<HomeProps> = ({ tokens, vacancies, categories }) => {
   const dispatch = useDispatchTyped();
 
   useEffect(() => {
-    localStorage.setItem("access", accessToken);
     dispatch(setCatalog(categories));
+    if (tokens) {
+      localStorage.setItem("access", tokens.accessToken);
+      localStorage.setItem("refresh", tokens.refreshToken);
+    }
   }, []);
 
   return (
