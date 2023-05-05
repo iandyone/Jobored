@@ -1,12 +1,12 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { vacanciesApi } from "@/store/api/vacancies-api";
 import styles from "../styles/vacancies.module.scss";
 import ReactPaginate from "react-paginate";
 import SearchInput from "./search-input";
 import Vacancy from "./vacancy";
 import { IVacancy } from "@/types";
-import { useDispatchTyped } from "@/hooks/redux";
-import { setVacancies } from "@/store/slices/vacancies-slice";
+import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
+import { setPage, setVacancies } from "@/store/slices/vacancies-slice";
 
 interface handlerPageChangeProps {
   selected: number;
@@ -17,9 +17,9 @@ interface VacanciesBarProps {
 }
 
 const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
+  const { page: currentPage } = useSelectorTyped((store) => store.vacancies);
   const [pagesCounter, setPagesCount] = useState(125);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { isError, isFetching, isLoading, isSuccess, data } = vacanciesApi.useFetchVacanciesQuery(currentPage, { skip: currentPage === 1 });
+  const { isFetching, isLoading, data } = vacanciesApi.useFetchVacanciesQuery(currentPage, { skip: currentPage === 1 });
   const loading = isFetching || isLoading;
   const dispatch = useDispatchTyped();
   const vacancies = getVacansies();
@@ -37,12 +37,8 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
   }
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {
-    setCurrentPage(selected + 1);
+    dispatch(setPage(selected + 1));
   }
-
-  useEffect(() => {
-    // console.log(vacancies);
-  });
 
   return (
     <section className={styles.vacancies}>
@@ -68,6 +64,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
           previousClassName={styles.vacancies__page}
           nextClassName={styles.vacancies__page}
           disabledClassName={`${styles.vacancies__page} ${styles.disabled}`}
+          forcePage={currentPage - 1}
         />
       </div>
     </section>

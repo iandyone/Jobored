@@ -3,10 +3,12 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface VacancyState {
   current: IVacancy[];
+  page: number;
 }
 
 const initialState: VacancyState = {
   current: [],
+  page: 1,
 };
 
 const VacancySlice = createSlice({
@@ -16,8 +18,11 @@ const VacancySlice = createSlice({
     setVacancies(state, action: PayloadAction<IVacancy[]>) {
       state.current = action.payload;
     },
+    setPage(state, action: PayloadAction<number>) {
+      state.page = action.payload;
+    },
   },
 });
 
 export default VacancySlice.reducer;
-export const { setVacancies } = VacancySlice.actions;
+export const { setVacancies, setPage} = VacancySlice.actions;
