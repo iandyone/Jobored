@@ -82,6 +82,16 @@
 }
 
 %loading {
-  transition: $transition;
-  background: greenyellow;
+  animation: shimmer 2s 0.2s infinite;
+  background-image: linear-gradient(90deg, #22252c, #22252c 40%, #83868d 50%, #83868d 55%, #22252c 70%, #22252c);
+  background-size: 300%;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 120%, 120%;
+  }
+  to {
+    background-position: 0, 0;
+  }
 }

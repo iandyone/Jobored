@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Inter } from "@next/font/google";
-import Header from "./header";
+import Header from "../header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,7 +11,7 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const AppLayout: FC<LayoutProps> = ({ children }) => {
   return (
     <div className={inter.className}>
       <Header />
@@ -20,4 +20,4 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default AppLayout;

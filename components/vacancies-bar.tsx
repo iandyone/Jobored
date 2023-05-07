@@ -7,6 +7,9 @@ import styles from "../styles/vacancies.module.scss";
 import Vacancy from "./vacancy";
 import ReactPaginate from "react-paginate";
 import SearchInput from "./search-input";
+import EmptyState from "./empty-state";
+import Heading from "./heading";
+import VacanciesLayout from "./layouts/vacancies-layout";
 
 interface handlerPageChangeProps {
   selected: number;
@@ -43,13 +46,14 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
   function getPageCounter() {
     const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE;
     const vavanciesPerRequest = process.env.NEXT_PUBLIC_VACANCIES_PER_REQUEST;
+    const maxPages = +vavanciesPerRequest! / +vacanciesPerPage!;
 
     if (data) {
       const lastPage = Math.ceil(data.total / +vacanciesPerPage!) - 1;
-      return lastPage < 125 ? lastPage : 125;
+      return lastPage < maxPages ? lastPage : maxPages;
     }
 
-    return +vavanciesPerRequest! / +vacanciesPerPage!;
+    return maxPages;
   }
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {
@@ -69,9 +73,32 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
     setPages(getPageCounter());
   });
 
+  if (data && !data.objects.length && loading) {
+    const vacancies = startVacancies;
+
+    return (
+      <VacanciesLayout>
+        <div className={styles.vacancies__list}>
+          {vacancies.map((vacancy) => {
+            return <Vacancy vacancy={vacancy} key={vacancy.id} loading={loading} />;
+          })}
+        </div>
+      </VacanciesLayout>
+    );
+  }
+
+  if (data && !data.objects.length) {
+    return (
+      <VacanciesLayout>
+        <EmptyState>
+          <Heading className={styles.vacancies__heading} text='Вакансий не найдено' tag='h2' />
+        </EmptyState>
+      </VacanciesLayout>
+    );
+  }
+
   return (
-    <section className={styles.vacancies}>
-      <SearchInput placeholder='Введите название вакансии' />
+    <VacanciesLayout>
       <div className={styles.vacancies__list}>
         {vacancies.map((vacancy) => {
           return <Vacancy vacancy={vacancy} key={vacancy.id} loading={loading} />;
@@ -96,7 +123,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
           forcePage={currentPage - 1}
         />
       </div>
-    </section>
+    </VacanciesLayout>
   );
 };
 

@@ -17,7 +17,7 @@
   }
 
   &__card {
-    height: 158px;
+    height: auto;
     row-gap: 16px !important;
   }
 
@@ -25,6 +25,11 @@
     color: $black !important;
     font-size: 28px !important;
     font-weight: 700 !important;
+    span {
+      overflow: auto;
+      white-space: normal;
+      line-height: 120%;
+    }
   }
 
   &__text {
