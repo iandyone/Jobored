@@ -1,10 +1,11 @@
-import $axios from "@/axios";
 import { IAuthResponse, ICatalog, IVacancy, VacanciesResponse } from "@/types";
+import $axios from "@/axios";
 
-const login = "sergei.stralenia@gmail.com";
-const password = "paralect123";
-const client_secret = "v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948";
-const client_id = 2356;
+const login = process.env.NEXT_PUBLIC_LOGIN;
+const password = process.env.NEXT_PUBLIC_PASSWORD;
+const client_id = process.env.NEXT_PUBLIC_CLIEND_ID;
+const client_secret = process.env.NEXT_PUBLIC_X_API_APP_ID;
+const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE
 
 export async function getAuthorization() {
   try {
@@ -32,7 +33,7 @@ export async function getAuthorization() {
   }
 }
 
-export async function getVacancies({ page = 1, count = 4 }) {
+export async function getVacancies({ page = 1, count = vacanciesPerPage}) {
   try {
     const vacanciesResponse = await $axios.get<VacanciesResponse>("/vacancies", {
       params: { page, count },

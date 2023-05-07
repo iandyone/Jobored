@@ -3,7 +3,7 @@ import styles from "../styles/header.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../public/logo.svg";
-import Navbar from "./navbar";
+import NavBar from "./navbar";
 
 const Header: FC = () => {
   return (
@@ -15,7 +15,7 @@ const Header: FC = () => {
               <Image alt='logo.svg' src={logo} priority />
             </Link>
           </div>
-            <Navbar/>
+            <NavBar/>
         </div>
       </div>
     </header>

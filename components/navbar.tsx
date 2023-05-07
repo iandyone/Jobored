@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styles from "../styles/navigation.module.scss";
 import Link from "next/link";
 
-const Navbar: FC = () => {
+const NavBar: FC = () => {
   const { pathname } = useRouter();
 
   return (
@@ -20,4 +20,4 @@ const Navbar: FC = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

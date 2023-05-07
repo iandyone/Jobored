@@ -1,5 +1,5 @@
-import { IVacancy } from "@/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IVacancy } from "@/types";
 
 interface VacancyState {
   current: IVacancy[];
@@ -25,4 +25,4 @@ const VacancySlice = createSlice({
 });
 
 export default VacancySlice.reducer;
-export const { setVacancies, setPage} = VacancySlice.actions;
+export const { setVacancies, setPage } = VacancySlice.actions;

@@ -2,8 +2,8 @@ import { useSelectorTyped } from "@/hooks/redux";
 import { vacanciesApi } from "@/store/api/vacancies-api";
 import { useRouter } from "next/router";
 import { FC } from "react";
-import Vacancy from "@/components/vacancy";
 import styles from "../../styles/vacancy-page.module.scss";
+import Vacancy from "@/components/vacancy";
 import parse from "html-react-parser";
 
 const VacansyPage: FC = () => {
@@ -23,18 +23,16 @@ const VacansyPage: FC = () => {
     const vacancyData = vacancies.find((vacancy) => vacancy.id === +id!) || data;
     const loading = vacancyData ? false : isLoading;
     const description = parse(vacancyData ? vacancyData!.vacancyRichText : "");
-    return { vacancyData, loading, description };
+    return { vacancyData, description, loading };
   }
 
   return (
-    <>
-      <div className={styles.vacancy}>
-        <div className={`${styles.vacancy__container} container`}>
-          <Vacancy loading={loading} vacancy={vacancyData!} classNames={vacancyCardClasses} />
-          <div className={`${styles.vacancy__description} ${loading && styles.loading}`}>{description}</div>
-        </div>
+    <div className={styles.vacancy}>
+      <div className={`${styles.vacancy__container} container`}>
+        <Vacancy loading={loading} vacancy={vacancyData!} classNames={vacancyCardClasses} />
+        <div className={`${styles.vacancy__description} ${loading && styles.loading}`}>{description}</div>
       </div>
-    </>
+    </div>
   );
 };
 

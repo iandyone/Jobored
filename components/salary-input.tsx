@@ -16,7 +16,7 @@ const SalaryInput: FC<SalaryInputProps> = ({ placeholder, salaryType }) => {
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.replace(/[^\d]/g, "");
 
-    if (!value) {
+    if(!value) {
       salaryType === "min" ? dispatch(setMinSalaryValue("")) : dispatch(setMaxSalaryValue(""));
       return;
     }
@@ -28,12 +28,12 @@ const SalaryInput: FC<SalaryInputProps> = ({ placeholder, salaryType }) => {
   function changeValue(e: MouseEvent<HTMLButtonElement>) {
     const target = e.target as HTMLElement;
 
-    if (target.classList.contains(`${styles.increase}`)) {
+    if(target.classList.contains(`${styles.increase}`)) {
       salaryType === "min" ? dispatch(setMinSalaryValue(+value! + 1)) : dispatch(setMaxSalaryValue(+value! + 1));
       return;
     }
 
-    if (target.classList.contains(`${styles.reduce}`) && +value) {
+    if(target.classList.contains(`${styles.reduce}`) && +value) {
       salaryType === "min" ? dispatch(setMinSalaryValue(+value! - 1)) : dispatch(setMaxSalaryValue(+value! - 1));
       return;
     }

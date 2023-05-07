@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
-import Header from "./header";
 import { Inter } from "@next/font/google";
+import Header from "./header";
 
 const inter = Inter({
   subsets: ["latin"],

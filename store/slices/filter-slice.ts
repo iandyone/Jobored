@@ -1,12 +1,11 @@
-import { ICategory } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ICategory } from "@/types";
 
 type ISalary = number | string;
 
 interface filtersState {
   categories: ICategory[];
   category: string;
-  error: string;
   from: ISalary;
   to: ISalary;
   title: string;
@@ -17,7 +16,6 @@ const initialState: filtersState = {
   category: "",
   from: "",
   to: "",
-  error: "",
   title: "",
 };
 

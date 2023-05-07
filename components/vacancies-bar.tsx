@@ -1,12 +1,12 @@
 import { FC, useState } from "react";
 import { vacanciesApi } from "@/store/api/vacancies-api";
-import styles from "../styles/vacancies.module.scss";
-import ReactPaginate from "react-paginate";
-import SearchInput from "./search-input";
-import Vacancy from "./vacancy";
 import { IVacancy } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setPage, setVacancies } from "@/store/slices/vacancies-slice";
+import styles from "../styles/vacancies.module.scss";
+import Vacancy from "./vacancy";
+import ReactPaginate from "react-paginate";
+import SearchInput from "./search-input";
 
 interface handlerPageChangeProps {
   selected: number;
@@ -17,14 +17,15 @@ interface VacanciesBarProps {
 }
 
 const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
+  const pagesTotal = getPageCounter();
+  const dispatch = useDispatchTyped();
   const { page: currentPage } = useSelectorTyped((store) => store.vacancies);
-  const [pagesCounter, setPagesCount] = useState(125);
+  const [pagesCounter] = useState(pagesTotal);
   const { isFetching, isLoading, data } = vacanciesApi.useFetchVacanciesQuery(currentPage, { skip: currentPage === 1 });
   const loading = isFetching || isLoading;
-  const dispatch = useDispatchTyped();
-  const vacancies = getVacansies();
+  const vacancies = getVacancies();
 
-  function getVacansies() {
+  function getVacancies() {
     if (currentPage === 1) {
       dispatch(setVacancies(startVacancies));
       return startVacancies;
@@ -34,6 +35,13 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
     dispatch(setVacancies(vacancies));
 
     return vacancies;
+  }
+
+  function getPageCounter() {
+    const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE;
+    const vavanciesPerRequest = process.env.NEXT_PUBLIC_VACANCIES_PER_REQUEST;
+
+    return Math.ceil(+vavanciesPerRequest! / +vacanciesPerPage!);
   }
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {

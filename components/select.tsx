@@ -28,7 +28,7 @@ const Select: FC<ISelect> = ({ className }) => {
       <span>{category || "Выберите отрасль"}</span>
       <div className={`${styles.select__icon} ${menuVisability ? styles.active : ""}`}>
         <div className={styles.select__svg}>
-          <svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' viewBox='0 0 256 256'>
+          <svg width='25' height='25' viewBox='0 0 256 256'>
             <path d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z'></path>
           </svg>
         </div>
@@ -36,7 +36,7 @@ const Select: FC<ISelect> = ({ className }) => {
       <ul className={menuVisability ? `${styles.select__menu} + ${styles.active}` : styles.select__menu}>
         {categories.map(({ id, title }) => {
           return (
-            <li className={styles.select__option} data-value={title} onClick={optionOnClick} key={id}>
+            <li className={styles.select__option} onClick={optionOnClick} data-value={title} data-elem='industry-select' key={id}>
               <span>{title}</span>
             </li>
           );
