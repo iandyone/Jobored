@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { vacanciesApi } from "@/store/api/vacancies-api";
 import { IVacancy } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
@@ -17,16 +17,19 @@ interface VacanciesBarProps {
 }
 
 const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
-  const pagesTotal = getPageCounter();
-  const dispatch = useDispatchTyped();
   const { page: currentPage } = useSelectorTyped((store) => store.vacancies);
-  const [pagesCounter] = useState(pagesTotal);
-  const { isFetching, isLoading, data } = vacanciesApi.useFetchVacanciesQuery(currentPage, { skip: currentPage === 1 });
+  const { activeFilters } = useSelectorTyped((state) => state.filters);
+  const dispatch = useDispatchTyped();
+  const vacanciesConfig = getVacanciesRequestConfig();
+  const skipFetchCondition = !Object.keys(activeFilters).length && currentPage === 1;
+
+  const { isFetching, isLoading, data } = vacanciesApi.useFetchVacanciesQuery(vacanciesConfig, { skip: skipFetchCondition });
   const loading = isFetching || isLoading;
+  const [pages, setPages] = useState(getPageCounter());
   const vacancies = getVacancies();
 
   function getVacancies() {
-    if (currentPage === 1) {
+    if (skipFetchCondition) {
       dispatch(setVacancies(startVacancies));
       return startVacancies;
     }
@@ -41,12 +44,30 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
     const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE;
     const vavanciesPerRequest = process.env.NEXT_PUBLIC_VACANCIES_PER_REQUEST;
 
-    return Math.ceil(+vavanciesPerRequest! / +vacanciesPerPage!);
+    if (data) {
+      const lastPage = Math.ceil(data.total / +vacanciesPerPage!) - 1;
+      return lastPage < 125 ? lastPage : 125;
+    }
+
+    return +vavanciesPerRequest! / +vacanciesPerPage!;
   }
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {
     dispatch(setPage(selected + 1));
   }
+
+  function getVacanciesRequestConfig() {
+    return {
+      page: currentPage,
+      no_agreement: 1,
+      count: process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE,
+      ...activeFilters,
+    };
+  }
+
+  useEffect(() => {
+    setPages(getPageCounter());
+  });
 
   return (
     <section className={styles.vacancies}>
@@ -62,7 +83,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
           nextLabel='>'
           onPageChange={handlerPageChange}
           pageRangeDisplayed={3}
-          pageCount={pagesCounter}
+          pageCount={pages}
           previousLabel='<'
           renderOnZeroPageCount={null}
           marginPagesDisplayed={1}

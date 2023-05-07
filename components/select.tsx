@@ -18,14 +18,15 @@ const Select: FC<ISelect> = ({ className }) => {
     const target = e.target as HTMLElement;
     const element = target.closest("li");
     const category = element!.getAttribute("data-value");
+    const currentCategory = categories.find(categoryItem => categoryItem.title === category);
 
-    dispatch(setCategory(category!));
+    dispatch(setCategory(currentCategory!));
     setMenuVisability(false);
   }
 
   return (
     <div className={`${selectClassName} ${menuVisability ? styles.selected : ""}`} onClick={() => setMenuVisability(!menuVisability)}>
-      <span>{category || "Выберите отрасль"}</span>
+      <span>{category.title || "Выберите отрасль"}</span>
       <div className={`${styles.select__icon} ${menuVisability ? styles.active : ""}`}>
         <div className={styles.select__svg}>
           <svg width='25' height='25' viewBox='0 0 256 256'>
@@ -34,9 +35,9 @@ const Select: FC<ISelect> = ({ className }) => {
         </div>
       </div>
       <ul className={menuVisability ? `${styles.select__menu} + ${styles.active}` : styles.select__menu}>
-        {categories.map(({ id, title }) => {
+        {categories.map(({ key, title }) => {
           return (
-            <li className={styles.select__option} onClick={optionOnClick} data-value={title} data-elem='industry-select' key={id}>
+            <li className={styles.select__option} onClick={optionOnClick} data-value={title} data-elem='industry-select' key={key}>
               <span>{title}</span>
             </li>
           );

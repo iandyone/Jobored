@@ -59,7 +59,7 @@ export async function getCatalog() {
     if (catalotResponse.status === 200) {
       const categories =
         catalotResponse.data.map((category) => {
-          return { id: category.key, title: category.title_trimmed };
+          return { key: category.key, title: category.title_trimmed };
         }) || [];
 
       return categories;

@@ -14,10 +14,10 @@ interface IVacancyProps {
 }
 
 const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} }) => {
-  const salary = getSalaty();
+  const salary = getSalary();
   const router = useRouter();
 
-  function getSalaty() {
+  function getSalary() {
     if (vacancy) {
       if (!vacancy.payment_from && !vacancy.payment_to) {
         return "Зарплата не указана";
@@ -27,7 +27,13 @@ const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} 
         return `з/п ${vacancy.payment_from} - ${vacancy.payment_to} ${vacancy.currency}`;
       }
 
-      return `з/п ${vacancy.payment_from || vacancy.payment_to} ${vacancy.currency}`;
+      if (vacancy.payment_from && !vacancy.payment_to) {
+        return `з/п от ${vacancy.payment_from} ${vacancy.currency}`;
+      }
+
+      if (!vacancy.payment_from && vacancy.payment_to) {
+        return `з/п до ${vacancy.payment_to} ${vacancy.currency}`;
+      }
     }
   }
 

@@ -8,8 +8,24 @@ export interface ICatalog {
 }
 
 export interface ICategory {
-  id: number;
+  key: number;
   title: string;
+}
+export interface VacanciesSearchParams {
+  page: number;
+  keyword?: string;
+  payment_from?: number;
+  payment_to?: number;
+  catalogues?: number;
+}
+
+export interface IFilter {
+  published?: number;
+  keyword?: string;
+  payment_from?: number;
+  payment_to?: number;
+  catalogues?: number;
+  no_agreement?: number;
 }
 
 export interface IPosition {

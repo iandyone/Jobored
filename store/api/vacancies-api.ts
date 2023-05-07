@@ -1,5 +1,7 @@
-import { IVacancy, VacanciesResponse } from "@/types";
+import { IFilter, IVacancy, VacanciesResponse } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+// interface
 
 export const vacanciesApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -9,14 +11,11 @@ export const vacanciesApi = createApi({
   tagTypes: ["vacancies"],
   endpoints: (build) => {
     return {
-      fetchVacancies: build.query<VacanciesResponse, number>({
-        query: (page = 1) => {
+      fetchVacancies: build.query<VacanciesResponse, IFilter>({
+        query: (params) => {
           return {
             url: "/vacancies",
-            params: {
-              page: page,
-              count: process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE,
-            },
+            params,
             headers: {
               Authorization: localStorage.getItem("access") || "",
               "X-Api-App-Id": process.env.NEXT_PUBLIC_X_API_APP_ID,
@@ -25,6 +24,7 @@ export const vacanciesApi = createApi({
           };
         },
       }),
+
       fetchVacancy: build.query<IVacancy, string>({
         query: (id) => {
           return {
