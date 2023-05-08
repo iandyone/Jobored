@@ -6,7 +6,6 @@ import { setPage, setVacancies } from "@/store/slices/vacancies-slice";
 import styles from "../styles/vacancies.module.scss";
 import Vacancy from "./vacancy";
 import ReactPaginate from "react-paginate";
-import SearchInput from "./search-input";
 import EmptyState from "./empty-state";
 import Heading from "./heading";
 import VacanciesLayout from "./layouts/vacancies-layout";

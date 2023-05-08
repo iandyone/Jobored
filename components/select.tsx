@@ -10,15 +10,14 @@ interface ISelect {
 const Select: FC<ISelect> = ({ className }) => {
   const [menuVisability, setMenuVisability] = useState(false);
   const { category, categories } = useSelectorTyped((store) => store.filters);
-
-  const selectClassName = category ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
+  const selectClassName = category.title ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
   const dispatch = useDispatchTyped();
 
   function optionOnClick(e: MouseEvent<HTMLElement>) {
     const target = e.target as HTMLElement;
     const element = target.closest("li");
     const category = element!.getAttribute("data-value");
-    const currentCategory = categories.find(categoryItem => categoryItem.title === category);
+    const currentCategory = categories.find((categoryItem) => categoryItem.title === category);
 
     dispatch(setCategory(currentCategory!));
     setMenuVisability(false);

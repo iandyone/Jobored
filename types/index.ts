@@ -20,11 +20,11 @@ export interface VacanciesSearchParams {
 }
 
 export interface IFilter {
-  published?: number;
   keyword?: string;
-  payment_from?: number;
+  published?: number;
   payment_to?: number;
   catalogues?: number;
+  payment_from?: number;
   no_agreement?: number;
 }
 
@@ -47,8 +47,6 @@ export interface VacanciesResponse {
   objects: IVacancy[];
   total: number;
 }
-
-
 
 export interface IVacancy {
   id: number;
