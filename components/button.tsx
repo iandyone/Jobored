@@ -16,7 +16,7 @@ const Button: FC<ButtonProps> = ({ className, text }) => {
     dispatch(setPage(1))
   }
 
-  return <button className={`${className} button`} onClick={applyFilters}>{text}</button>;
+  return <button className={`${className} button`} onClick={applyFilters} data-elem="search-button">{text}</button>;
 };
 
 export default Button;

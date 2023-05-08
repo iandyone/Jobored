@@ -18,7 +18,7 @@ const SearchInput: FC<SearchInputProps> = ({ placeholder }) => {
 
   return (
     <div className={styles.search}>
-      <input className={styles.search__input} type='text' placeholder={placeholder} value={title} onChange={inputChangeHandler} />
+      <input className={styles.search__input} type='text' placeholder={placeholder} value={title} onChange={inputChangeHandler} data-elem='search-input' />
       <Button className={styles.search__button} text='Поиск' />
     </div>
   );

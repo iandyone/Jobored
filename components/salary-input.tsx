@@ -12,11 +12,12 @@ const SalaryInput: FC<SalaryInputProps> = ({ placeholder, salaryType }) => {
   const { from: minSalary, to: maxSalary } = useSelectorTyped((store) => store.filters);
   const value = salaryType === "min" ? minSalary : maxSalary;
   const dispatch = useDispatchTyped();
+  const dataElemAttribute = salaryType === "min" ? "salary-from-input" : "salary-to-input";
 
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.replace(/[^\d]/g, "");
 
-    if(!value) {
+    if (!value) {
       salaryType === "min" ? dispatch(setMinSalaryValue("")) : dispatch(setMaxSalaryValue(""));
       return;
     }
@@ -28,12 +29,12 @@ const SalaryInput: FC<SalaryInputProps> = ({ placeholder, salaryType }) => {
   function changeValue(e: MouseEvent<HTMLButtonElement>) {
     const target = e.target as HTMLElement;
 
-    if(target.classList.contains(`${styles.increase}`)) {
+    if (target.classList.contains(`${styles.increase}`)) {
       salaryType === "min" ? dispatch(setMinSalaryValue(+value! + 1)) : dispatch(setMaxSalaryValue(+value! + 1));
       return;
     }
 
-    if(target.classList.contains(`${styles.reduce}`) && +value) {
+    if (target.classList.contains(`${styles.reduce}`) && +value) {
       salaryType === "min" ? dispatch(setMinSalaryValue(+value! - 1)) : dispatch(setMaxSalaryValue(+value! - 1));
       return;
     }
@@ -41,7 +42,7 @@ const SalaryInput: FC<SalaryInputProps> = ({ placeholder, salaryType }) => {
 
   return (
     <div className={styles.input}>
-      <input className={styles.input__element} type='text' placeholder={placeholder} onChange={handlerOnChange} value={salaryType === "min" ? minSalary : maxSalary} />
+      <input className={styles.input__element} type='text' placeholder={placeholder} onChange={handlerOnChange} value={salaryType === "min" ? minSalary : maxSalary} data-elem={dataElemAttribute} />
       <button className={`${styles.input__button} ${styles.increase}`} onClick={changeValue}></button>
       <button className={`${styles.input__button} ${styles.reduce}`} onClick={changeValue}></button>
     </div>

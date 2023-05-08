@@ -10,8 +10,9 @@ interface ISelect {
 const Select: FC<ISelect> = ({ className }) => {
   const [menuVisability, setMenuVisability] = useState(false);
   const { category, categories } = useSelectorTyped((store) => store.filters);
-  const selectClassName = category.title ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
   const dispatch = useDispatchTyped();
+  const selectActivityClassName = category.title ? `${className} ${styles.select} ${styles.active}` : `${className} ${styles.select}`;
+  const selectClassName = `${selectActivityClassName} ${menuVisability ? styles.selected : ""}`;
 
   function optionOnClick(e: MouseEvent<HTMLElement>) {
     const target = e.target as HTMLElement;
@@ -24,7 +25,7 @@ const Select: FC<ISelect> = ({ className }) => {
   }
 
   return (
-    <div className={`${selectClassName} ${menuVisability ? styles.selected : ""}`} onClick={() => setMenuVisability(!menuVisability)}>
+    <div className={selectClassName} onClick={() => setMenuVisability(!menuVisability)} data-elem="industry-select">
       <span>{category.title || "Выберите отрасль"}</span>
       <div className={`${styles.select__icon} ${menuVisability ? styles.active : ""}`}>
         <div className={styles.select__svg}>
