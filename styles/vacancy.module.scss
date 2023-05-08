@@ -4,7 +4,8 @@
 .vacancy {
   @extend %content;
   row-gap: 12px;
-  height: 138px;
+  min-height: 138px;
+  height: auto;
 
   &:hover {
     cursor: pointer;
@@ -103,8 +104,7 @@
     }
     
     &:active {
-      transform: scale(.85);
-      transition: $transition;
+      @extend %pressed;
     }
     
     &.active {

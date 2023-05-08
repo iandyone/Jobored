@@ -70,3 +70,11 @@ export interface IVacancy {
   currency: string;
   vacancyRichText: string;
 }
+
+export interface IFavorite {
+  [key: number]: IVacancy;
+}
+
+export interface handlerPageChangeProps {
+  selected: number;
+}

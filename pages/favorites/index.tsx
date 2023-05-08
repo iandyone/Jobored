@@ -1,7 +1,66 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Head from "next/head";
+import styles from "../../styles/favorites.module.scss";
+import { IVacancy, handlerPageChangeProps } from "@/types";
+import { useSelectorTyped } from "@/hooks/redux";
+import VacanciesList from "@/components/vacancies-list";
+import EmptyState from "@/components/empty-state";
+import Heading from "@/components/heading";
 
 const Favorites: FC = () => {
+  const { favorites } = useSelectorTyped((store) => store.vacancies);
+  const vacanciesPerPage = +process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE!;
+  const [vacancies, setVacancies] = useState(getVacancies(1));
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pages, setPages] = useState(countPages());
+
+  function countPages(vacs: IVacancy[] = []) {
+    const vacancies = vacs.length ? vacs : Object.values(favorites) || JSON.parse(localStorage.getItem("favorites")!);
+    return Math.ceil(vacancies.length / vacanciesPerPage);
+  }
+
+  function getVacancies(page: number) {
+    const vacancies = Object.values(favorites);
+    const firstIndex = (page - 1) * vacanciesPerPage
+    return vacancies.slice(firstIndex, firstIndex + vacanciesPerPage);
+  }
+
+  function handlerPageChange({ selected }: handlerPageChangeProps) {
+    setCurrentPage(selected + 1);
+    setVacancies(getVacancies(selected + 1));
+  }
+
+  useEffect(() => {
+    getVacancies(currentPage);
+  }, []);
+
+  useEffect(() => {
+    if (!Object.values(favorites).length) {
+      const temp = localStorage.getItem("favorites");
+      if (temp) {
+        const vacancies: IVacancy[] = Object.values(JSON.parse(temp));
+        const startVacancies = vacancies.slice(0, vacanciesPerPage);
+        setVacancies(startVacancies);
+        console.log(startVacancies);
+        setPages(countPages(vacancies));
+      }
+    }
+  }, []);
+
+  if (!vacancies.length) {
+    console.log(favorites);
+
+    return (
+      <div className={`${styles.favorites__container} container`}>
+        <div className={styles.favorites__body}>
+          <EmptyState>
+            <Heading text='Упс, здесь еще ничего нет!' tag='h2' className={styles.favorites__title} />
+          </EmptyState>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -10,8 +69,12 @@ const Favorites: FC = () => {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <section>
-        <h1>favorites</h1>
+      <section className={styles.favorites}>
+        <div className={`${styles.favorites__container} container`}>
+          <div className={styles.favorites__body}>
+            <VacanciesList currentPage={currentPage} handlerPageChange={handlerPageChange} pages={pages} vacancies={vacancies} />
+          </div>
+        </div>
       </section>
     </>
   );

@@ -2,7 +2,8 @@
 @import "./resoures/templates.scss";
 
 .vacancy {
-  padding: 40px 0px;
+  padding: $pagePadding;
+  padding-bottom: 40px;
 
   &__container {
     max-width: 773px;

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { vacanciesApi } from "@/store/api/vacancies-api";
-import { IVacancy } from "@/types";
+import { IVacancy, handlerPageChangeProps } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setPage, setVacancies } from "@/store/slices/vacancies-slice";
 import styles from "../styles/vacancies.module.scss";
@@ -9,10 +9,9 @@ import ReactPaginate from "react-paginate";
 import EmptyState from "./empty-state";
 import Heading from "./heading";
 import VacanciesLayout from "./layouts/vacancies-layout";
+import VacanciesList from "./vacancies-list";
 
-interface handlerPageChangeProps {
-  selected: number;
-}
+
 
 interface VacanciesBarProps {
   vacancies: IVacancy[];
@@ -98,7 +97,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
 
   return (
     <VacanciesLayout>
-      <div className={styles.vacancies__list}>
+      {/* <div className={styles.vacancies__list}>
         {vacancies.map((vacancy) => {
           return <Vacancy vacancy={vacancy} key={vacancy.id} loading={loading} />;
         })}
@@ -121,7 +120,8 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
           disabledClassName={`${styles.vacancies__page} ${styles.disabled}`}
           forcePage={currentPage - 1}
         />
-      </div>
+      </div> */}
+      <VacanciesList currentPage={currentPage} handlerPageChange={handlerPageChange} pages={pages} vacancies={vacancies} loading={loading}/>
     </VacanciesLayout>
   );
 };

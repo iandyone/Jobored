@@ -1,7 +1,9 @@
 import { FC, MouseEvent, useEffect, useState } from "react";
-import { IVacancy } from "@/types";
+import { IFavorite, IVacancy } from "@/types";
 import { useRouter } from "next/router";
 import styles from "../styles/vacancy.module.scss";
+import { setFavorites } from "@/store/slices/vacancies-slice";
+import { useDispatchTyped } from "@/hooks/redux";
 
 interface IVacancyProps {
   loading?: boolean;
@@ -16,7 +18,7 @@ interface IVacancyProps {
 const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} }) => {
   const salary = getSalary();
   const router = useRouter();
-
+  const dispatch = useDispatchTyped();
   const [isSaved, setSaved] = useState(false);
 
   function getSalary() {
@@ -44,25 +46,25 @@ const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} 
   }
 
   function saveVacancy(e: MouseEvent<HTMLElement>) {
-    const favorites: number[] = JSON.parse(localStorage.getItem("favorites")!) || [];
-    const isVacancyAlredySaved = favorites.includes(vacancy.id);
+    const favorites: IFavorite = JSON.parse(localStorage.getItem("favorites")!) || ({} as IFavorite);
+    const isVacancyAlredySaved = vacancy.id in favorites;
 
     if (isVacancyAlredySaved) {
-      const newFavorites = favorites.filter((id) => id !== vacancy.id);
-      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      delete favorites[vacancy.id];
       setSaved(false);
     } else {
-      favorites.push(vacancy.id);
-      localStorage.setItem("favorites", JSON.stringify(favorites));
+      favorites[vacancy.id] = vacancy;
       setSaved(true);
     }
 
+    dispatch(setFavorites(Object.values(favorites)));
+    localStorage.setItem("favorites", JSON.stringify(favorites));
     e.stopPropagation();
   }
 
   function checkSaved() {
-    const favorites: number[] = JSON.parse(localStorage.getItem("favorites")!) || [];
-    setSaved(favorites.includes(vacancy.id));
+    const favorites: IFavorite = JSON.parse(localStorage.getItem("favorites")!) || ({} as IFavorite);
+    setSaved(vacancy?.id in favorites);
   }
 
   useEffect(() => {

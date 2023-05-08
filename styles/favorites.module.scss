@@ -1,13 +1,13 @@
 @import "./resoures/variables.scss";
 @import "./resoures/templates.scss";
 
-
-.jobs {
+.favorites {
   padding: $pagePadding;
 
-  &__body {
-    display: flex;
-    column-gap: 26px;
-    justify-content: space-between;
+  &__container {
+    max-width: 775px;
   }
+
+ &__body {
+ } 
 }
