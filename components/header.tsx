@@ -12,7 +12,7 @@ const Header: FC = () => {
         <div className={styles.header__body}>
           <div className={styles.header__logo}>
             <Link href='/'>
-              <Image alt='logo.svg' src={logo} priority />
+              <Image alt='logo.svg' src={logo } />
             </Link>
           </div>
             <NavBar/>

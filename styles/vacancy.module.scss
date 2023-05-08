@@ -91,14 +91,26 @@
   &__icon {
     width: 22px;
     height: 22px;
-    fill: $gray500;
+    fill: none;
+    stroke: $gray500;
     transition: $transition;
-
+    
     &:hover {
-      fill: $blue500;
+      stroke: $blue500;
       transition: $transition;
       cursor: pointer;
       stroke: $blue500;
+    }
+    
+    &:active {
+      transform: scale(.85);
+      transition: $transition;
+    }
+    
+    &.active {
+      fill: $blue500;
+      stroke: $blue500;
+      transition: $transition;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, MouseEvent, useEffect, useState } from "react";
 import { IVacancy } from "@/types";
 import { useRouter } from "next/router";
 import styles from "../styles/vacancy.module.scss";
@@ -16,6 +16,8 @@ interface IVacancyProps {
 const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} }) => {
   const salary = getSalary();
   const router = useRouter();
+
+  const [isSaved, setSaved] = useState(false);
 
   function getSalary() {
     if (vacancy) {
@@ -41,6 +43,32 @@ const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} 
     router.push(`/vacancies/${vacancy!.id}`);
   }
 
+  function saveVacancy(e: MouseEvent<HTMLElement>) {
+    const favorites: number[] = JSON.parse(localStorage.getItem("favorites")!) || [];
+    const isVacancyAlredySaved = favorites.includes(vacancy.id);
+
+    if (isVacancyAlredySaved) {
+      const newFavorites = favorites.filter((id) => id !== vacancy.id);
+      localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      setSaved(false);
+    } else {
+      favorites.push(vacancy.id);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      setSaved(true);
+    }
+
+    e.stopPropagation();
+  }
+
+  function checkSaved() {
+    const favorites: number[] = JSON.parse(localStorage.getItem("favorites")!) || [];
+    setSaved(favorites.includes(vacancy.id));
+  }
+
+  useEffect(() => {
+    checkSaved();
+  }, []);
+
   if (loading) {
     return <div className={`${styles.vacancy} ${styles.loading}`}></div>;
   }
@@ -51,9 +79,12 @@ const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} 
         <h2 className={`${styles.title__text} ${classNames.title}`}>
           <span>{vacancy.profession}</span>
         </h2>
-        <div className={styles.title__icon} data-elem={`vacancy-${vacancy.id}-shortlist-button`}>
-          <svg width='22' height='22' viewBox='0 0 256 256'>
-            <path d='M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z'></path>
+        <div className={`${styles.title__icon} ${isSaved && styles.active}`} onClick={saveVacancy} data-elem={`vacancy-${vacancy.id}-shortlist-button`}>
+          <svg width='24' height='24' viewBox='0 0 24 24'>
+            <path
+              d='M10.9718 2.70846C11.4382 1.93348 12.5618 1.93348 13.0282 2.70847L15.3586 6.58087C15.5262 6.85928 15.7995 7.05784 16.116 7.13116L20.5191 8.15091C21.4002 8.35499 21.7474 9.42356 21.1545 10.1066L18.1918 13.5196C17.9788 13.765 17.8744 14.0863 17.9025 14.41L18.2932 18.9127C18.3714 19.8138 17.4625 20.4742 16.6296 20.1214L12.4681 18.3583C12.1689 18.2316 11.8311 18.2316 11.5319 18.3583L7.37038 20.1214C6.53754 20.4742 5.62856 19.8138 5.70677 18.9127L6.09754 14.41C6.12563 14.0863 6.02124 13.765 5.80823 13.5196L2.8455 10.1066C2.25257 9.42356 2.59977 8.35499 3.48095 8.15091L7.88397 7.13116C8.20053 7.05784 8.47383 6.85928 8.64138 6.58087L10.9718 2.70846Z'
+              strokeWidth='1.5'
+            />
           </svg>
         </div>
       </div>
