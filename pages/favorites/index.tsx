@@ -11,9 +11,9 @@ import styles from "../../styles/favorites.module.scss";
 const Favorites: FC = () => {
   const vacanciesPerPage = +process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE!;
   const { favorites } = useSelectorTyped((store) => store.vacancies);
-  const [vacancies, setVacancies] = useState(getVacancies(1));
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState(countPages());
+  const [vacancies, setVacancies] = useState(getVacancies(1));
   const dispatch = useDispatchTyped();
 
   function countPages(vacs: IVacancy[] = []) {
@@ -22,7 +22,7 @@ const Favorites: FC = () => {
   }
 
   function getVacancies(page: number) {
-    const vacancies = Object.values(favorites);
+    const vacancies = Object.values(favorites) || [];
     const firstIndex = (page - 1) * vacanciesPerPage;
     return vacancies.slice(firstIndex, firstIndex + vacanciesPerPage);
   }
@@ -37,7 +37,7 @@ const Favorites: FC = () => {
       const savedVacancies = localStorage.getItem("favorites");
 
       if (savedVacancies) {
-        const vacancies: IVacancy[] = Object.values(JSON.parse(savedVacancies));
+        const vacancies: IVacancy[] = Object.values(JSON.parse(savedVacancies)) || [];
         const startVacancies = vacancies.slice(0, vacanciesPerPage);
         setVacancies(startVacancies);
         setPages(countPages(vacancies));
@@ -50,6 +50,20 @@ const Favorites: FC = () => {
     getVacancies(currentPage);
     getFavorites();
   }, []);
+
+  useEffect(() => {
+    const vacancies = Object.values(favorites) || [];
+    setPages(countPages(vacancies));
+    setVacancies(getVacancies(currentPage));
+  }, [favorites]);
+
+  useEffect(() => {
+    if (currentPage !== 1 && currentPage !== pages) {
+      setCurrentPage(currentPage - 1);
+      setVacancies(getVacancies(currentPage - 1));
+      getFavorites();
+    }
+  }, [pages]);
 
   if (!vacancies.length) {
     return (
