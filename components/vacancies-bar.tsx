@@ -4,14 +4,10 @@ import { IVacancy, handlerPageChangeProps } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setPage, setVacancies } from "@/store/slices/vacancies-slice";
 import styles from "../styles/vacancies.module.scss";
-import Vacancy from "./vacancy";
-import ReactPaginate from "react-paginate";
 import EmptyState from "./empty-state";
 import Heading from "./heading";
 import VacanciesLayout from "./layouts/vacancies-layout";
 import VacanciesList from "./vacancies-list";
-
-
 
 interface VacanciesBarProps {
   vacancies: IVacancy[];

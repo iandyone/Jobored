@@ -83,4 +83,5 @@ export interface handlerPageChangeProps {
 
 export interface LayoutProps {
   children: ReactNode;
+  className?: string;
 }

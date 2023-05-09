@@ -3,11 +3,47 @@
 
 .favorites {
   padding: $pagePadding;
+  min-height: calc(100vh - $headerHeight);
 
   &__container {
     max-width: 775px;
+    height: 100%;
+  }
+  
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & .favorites__container {
+      display: flex;
+      align-items: center;
+    }
   }
 
- &__body {
- } 
+  &__heading {
+    @extend %errorHeading;
+  }
+
+  &__button {
+    background: $blue100 !important;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 155%;
+    color: $blue600;
+    max-width: 165px;
+
+    &:hover {
+      transition: $transition;
+      color: $white !important;
+      background-color: $blue400 !important;
+    }
+
+    &:active {
+      transition: $transition;
+      color: $white !important;
+      background-color: $blue600 !important;
+    }
+  }
 }

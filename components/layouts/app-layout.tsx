@@ -1,5 +1,4 @@
 import { FC } from "react";
-// import { Inter } from "@next/font/google";
 import { Inter } from "next/font/google";
 import { LayoutProps } from "@/types";
 import Header from "../header";

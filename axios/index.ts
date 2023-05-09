@@ -11,9 +11,8 @@ $axios.interceptors.request.use((config) => {
   return config;
 });
 
-$axios.interceptors.response.use((config) => {
-    return config;
-  },
+$axios.interceptors.response.use(
+  (config) => config,
   async (err) => {
     const originalRequest = err.config;
     if (err.response.status === 401 && err.config && !originalRequest._isRetry) {

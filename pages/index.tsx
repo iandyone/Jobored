@@ -34,6 +34,7 @@ const Home: FC<HomeProps> = ({ tokens, vacancies, categories }) => {
 
   useEffect(() => {
     dispatch(setCatalog(categories));
+    
     if (tokens) {
       localStorage.setItem("access", tokens.accessToken);
       localStorage.setItem("refresh", tokens.refreshToken);

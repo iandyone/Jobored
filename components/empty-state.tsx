@@ -4,7 +4,7 @@ import emptyLogo from "../public/empty.svg";
 import styles from "../styles/empry.module.scss"
 
 interface EmptyStateProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 

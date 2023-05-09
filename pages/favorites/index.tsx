@@ -2,11 +2,13 @@ import { FC, useEffect, useState } from "react";
 import { IVacancy, handlerPageChangeProps } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setFavorites } from "@/store/slices/vacancies-slice";
+import { useRouter } from "next/router";
 import VacanciesList from "@/components/vacancies-list";
 import EmptyState from "@/components/empty-state";
 import Heading from "@/components/heading";
 import FavoritesLayout from "@/components/layouts/favorites-layout";
 import styles from "../../styles/favorites.module.scss";
+import Button from "@/components/button";
 
 const Favorites: FC = () => {
   const vacanciesPerPage = +process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE!;
@@ -15,6 +17,7 @@ const Favorites: FC = () => {
   const [pages, setPages] = useState(countPages());
   const [vacancies, setVacancies] = useState(getVacancies(1));
   const dispatch = useDispatchTyped();
+  const router = useRouter();
 
   function countPages(vacs: IVacancy[] = []) {
     const vacancies = vacs.length ? vacs : Object.values(favorites) || JSON.parse(localStorage.getItem("favorites")!);
@@ -22,7 +25,7 @@ const Favorites: FC = () => {
   }
 
   function getVacancies(page: number) {
-    const vacancies = Object.values(favorites) || [];
+    const vacancies = Object.values(favorites).reverse() || [];
     const firstIndex = (page - 1) * vacanciesPerPage;
     return vacancies.slice(firstIndex, firstIndex + vacanciesPerPage);
   }
@@ -46,6 +49,10 @@ const Favorites: FC = () => {
     }
   }
 
+  function handlerEmptyButtonOnClick() {
+    router.push("/");
+  }
+
   useEffect(() => {
     getVacancies(currentPage);
     getFavorites();
@@ -59,17 +66,18 @@ const Favorites: FC = () => {
 
   useEffect(() => {
     if (currentPage !== 1 && currentPage !== pages) {
-      setCurrentPage(currentPage - 1);
       setVacancies(getVacancies(currentPage - 1));
       getFavorites();
+      setCurrentPage(currentPage - 1);
     }
   }, [pages]);
 
   if (!vacancies.length) {
     return (
-      <FavoritesLayout>
+      <FavoritesLayout className={styles.favorites__empty}>
         <EmptyState>
-          <Heading text='Упс, здесь еще ничего нет!' tag='h2' className={styles.favorites__title} />
+            <Heading className={styles.favorites__heading} text='Вакансий не найдено' tag='h2' />
+            <Button text='Поиск вакансий' className={styles.favorites__button} onClick={handlerEmptyButtonOnClick} />
         </EmptyState>
       </FavoritesLayout>
     );

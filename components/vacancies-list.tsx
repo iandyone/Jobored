@@ -36,6 +36,8 @@ const VacanciesList: FC<VacanciesListProps> = ({ vacancies, loading, pages, curr
           previousClassName={styles.vacancies__page}
           nextClassName={styles.vacancies__page}
           disabledClassName={`${styles.vacancies__page} ${styles.disabled}`}
+          breakClassName={styles.vacancies__break}
+          breakLinkClassName={styles.vacancies__break}
           forcePage={currentPage - 1}
         />
       </div>

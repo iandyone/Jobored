@@ -6,17 +6,22 @@ import { FC } from "react";
 interface ButtonProps {
   className: string;
   text: string;
+  onClick?: () => void;
 }
 
-const Button: FC<ButtonProps> = ({ className, text }) => {
-  const dispatch = useDispatchTyped()
+const Button: FC<ButtonProps> = ({ className, text, onClick }) => {
+  const dispatch = useDispatchTyped();
 
   function applyFilters() {
     dispatch(setFilters());
-    dispatch(setPage(1))
+    dispatch(setPage(1));
   }
 
-  return <button className={`${className} button`} onClick={applyFilters} data-elem="search-button">{text}</button>;
+  return (
+    <button className={`${className} button`} onClick={onClick ? onClick : applyFilters} data-elem='search-button'>
+      {text}
+    </button>
+  );
 };
 
 export default Button;

@@ -64,12 +64,13 @@ const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} 
 
   function checkSaved() {
     const favorites: IFavorite = JSON.parse(localStorage.getItem("favorites")!) || ({} as IFavorite);
-    setSaved(vacancy?.id in favorites);
+    const isSaved = vacancy?.id in favorites;
+    setSaved(isSaved);
   }
 
   useEffect(() => {
     checkSaved();
-  }, []);
+  });
 
   if (loading) {
     return <div className={`${styles.vacancy} ${styles.loading}`}></div>;

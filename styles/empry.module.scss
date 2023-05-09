@@ -1,3 +1,5 @@
+@import "./resoures/variables.scss";
+
 .empty {
   display: flex;
   flex-direction: column;
@@ -5,4 +7,11 @@
   align-items: center;
   padding: 30px;
   row-gap: 32px;
+  
+  &__title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: $black;
+  }
 }

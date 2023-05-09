@@ -32,6 +32,7 @@
     justify-content: center;
     align-items: center;
     user-select: none;
+    transition: border .3s ease;
 
     a {
       display: flex;
@@ -51,6 +52,11 @@
     &.active {
       background: $blue500;
       color: $white;
+      border-color: $blue500; 
+
+      &:hover {
+        cursor: default;
+      }
     }
 
     &.disabled {
@@ -61,6 +67,12 @@
       &:hover {
         cursor: auto;
       }
+    }
+  }
+
+  &__break {
+    &:hover {
+      cursor: pointer;
     }
   }
 }
