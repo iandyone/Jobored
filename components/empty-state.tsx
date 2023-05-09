@@ -12,7 +12,7 @@ const EmptyState: FC<EmptyStateProps> = ({ children, className }) => {
   return (
     <>
       <div className={`${className} ${styles.empty}`}>
-        <Image src={emptyLogo} alt='empty-logo'/>
+        <Image src={emptyLogo} alt='empty-logo' priority/>
         {children}
       </div>
     </>

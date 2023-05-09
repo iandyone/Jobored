@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ICatalog {
   title: string;
   title_rus: string;
@@ -77,4 +79,8 @@ export interface IFavorite {
 
 export interface handlerPageChangeProps {
   selected: number;
+}
+
+export interface LayoutProps {
+  children: ReactNode;
 }

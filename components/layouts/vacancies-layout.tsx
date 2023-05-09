@@ -1,12 +1,9 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import { LayoutProps } from "@/types";
 import styles from "../../styles/vacancies.module.scss";
 import SearchInput from "../search-input";
 
-interface VacanciesLayoutProps {
-  children: ReactNode;
-}
-
-const VacanciesLayout: FC<VacanciesLayoutProps> = ({ children }) => {
+const VacanciesLayout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <section className={styles.vacancies}>
