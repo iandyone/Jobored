@@ -45,7 +45,7 @@ const filterSlice = createSlice({
       state.category = initialState.category;
       state.from = initialState.from;
       state.to = initialState.to;
-    },
+    },  
 
     setTitle(state, action: PayloadAction<string>) {
       state.title = action.payload;

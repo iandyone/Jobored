@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useDispatchTyped } from "@/hooks/redux";
-import { resetFilters } from "@/store/slices/filter-slice";
+import { resetFilters, setFilters } from "@/store/slices/filter-slice";
+import { setPage } from "@/store/slices/vacancies-slice";
 import styles from "../styles/filters-bar.module.scss";
 import Select from "./select";
 import SalaryInput from "./salary-input";
@@ -9,12 +10,18 @@ import Button from "./button";
 
 const FiltersBar: FC = () => {
   const dispatch = useDispatchTyped();
+  
+  function setDefaultFilters() {
+    dispatch(resetFilters())
+    dispatch(setFilters());
+    dispatch(setPage(1));
+  }
 
   return (
     <aside className={styles.filters}>
       <div className={styles.filters__header}>
         <Heading className={styles.filters__title} tag='h2' text='Фильтры' />
-        <div className={styles.filters__reset} onClick={() => dispatch(resetFilters())}>
+        <div className={styles.filters__reset} onClick={setDefaultFilters}>
           <span>Сбросить все</span>
           <div className={styles.filters__icon}>
             <svg width='16' height='16' viewBox='0 0 16 16'>
