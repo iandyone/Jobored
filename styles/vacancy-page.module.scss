@@ -2,7 +2,7 @@
 @import "./resoures/templates.scss";
 
 .vacancy {
-  padding: $pagePadding;
+  @extend %pagePadding;
   padding-bottom: 40px;
 
   &__container {
@@ -10,6 +10,10 @@
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+
+    @media (max-width: 992px) {
+      padding-top: 60px;
+    }
 
     & > *:hover {
       box-shadow: none;
@@ -20,23 +24,43 @@
   &__card {
     height: auto;
     row-gap: 10px !important;
+
+    @media (max-width: 550px) {
+      row-gap: 8px !important;
+    }
   }
 
   &__title {
     color: $black !important;
     font-size: 28px !important;
     font-weight: 700 !important;
+    
+    @media (max-width: 992px) {
+      font-size: 22px !important;
+    }
+    
     span {
       overflow: auto;
-      white-space: normal;
+      white-space: normal !important;
       line-height: 120%;
       letter-spacing: 0em;
+
+      @media (max-width: 550px) {
+        font-size: 20px !important;
+      }
     }
   }
 
   &__text {
     font-size: 20px !important;
     margin-bottom: 5px;
+
+    @media (max-width: 992px) {
+      font-size: 18px !important;
+    }
+    @media (max-width: 550px) {
+        font-size: 16px !important;
+    }
   }
 
   &__description {
@@ -62,7 +86,7 @@
       }
     }
 
-    br  br {
+    br br {
       display: none;
     }
 
@@ -84,13 +108,15 @@
       margin-bottom: 16px;
     }
 
-    ul ~ p, ol ~ p {
+    ul ~ p,
+    ol ~ p {
       display: inline-block;
       line-height: 100%;
       color: $black;
     }
 
-    ul, ol {
+    ul,
+    ol {
       margin-top: 16px;
       margin-bottom: 16px;
 

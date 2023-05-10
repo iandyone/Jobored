@@ -1,9 +1,9 @@
 import { FC, MouseEvent, useEffect, useState } from "react";
 import { IFavorite, IVacancy } from "@/types";
 import { useRouter } from "next/router";
-import styles from "../styles/vacancy.module.scss";
 import { setFavorites } from "@/store/slices/vacancies-slice";
 import { useDispatchTyped } from "@/hooks/redux";
+import styles from "../styles/vacancy.module.scss";
 
 interface IVacancyProps {
   loading?: boolean;

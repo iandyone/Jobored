@@ -7,16 +7,25 @@
   min-height: 138px;
   height: auto;
 
+  @media (max-width: 550px) {
+    min-height: 110px;
+    row-gap: 8px;
+  }
+
   &:hover {
     cursor: pointer;
     box-shadow: $shadow;
     transition: $transition;
   }
 
-
   &__description {
     display: flex;
     column-gap: 33px;
+
+    @media (max-width: 550px) {
+        flex-direction: column-reverse;
+        row-gap: 4px;
+    }
   }
 
   &__condition {
@@ -36,6 +45,10 @@
         position: absolute;
         right: -20px;
         top: 0%;
+
+        @media (max-width: 550px) {
+            display: none;
+        }
       }
     }
   }
@@ -53,14 +66,20 @@
 .title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-weight: 600;
   font-size: 20px;
   color: $blue500;
   column-gap: 20px;
   position: relative;
+  display: flex;
 
   &__text {
     overflow: hidden;
+
+    @media (max-width: 550px) {
+        display: flex;
+    }
 
     span {
       overflow: hidden;
@@ -80,11 +99,16 @@
       }
 
       @media (max-width: 980px) {
-        max-width: 50vw;
+        max-width: 78vw;
       }
 
-      @media (max-width: 870px) {
-        max-width: 45vw;
+      @media (max-width: 650px) {
+        max-width: 75vw;
+      }
+
+      @media (max-width: 550px) {
+        letter-spacing: -0.03em;
+        font-size: 16px;
       }
     }
   }
@@ -95,18 +119,18 @@
     fill: none;
     stroke: $gray500;
     transition: $transition;
-    
+
     &:hover {
       stroke: $blue500;
       transition: $transition;
       cursor: pointer;
       stroke: $blue500;
     }
-    
+
     &:active {
       @extend %pressed;
     }
-    
+
     &.active {
       fill: $blue500;
       stroke: $blue500;

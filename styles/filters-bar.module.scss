@@ -10,6 +10,10 @@
   flex: 0 1 315px;
   min-width: 280px;
 
+  @media (max-width: 992px) {
+      display: none;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;

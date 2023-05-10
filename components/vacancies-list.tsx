@@ -1,7 +1,7 @@
 import { IVacancy, handlerPageChangeProps } from "@/types";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import styles from '../styles/vacancies-list.module.scss'
+import styles from "../styles/vacancies-list.module.scss";
 import Vacancy from "./vacancy";
 
 interface VacanciesListProps {
@@ -13,6 +13,20 @@ interface VacanciesListProps {
 }
 
 const VacanciesList: FC<VacanciesListProps> = ({ vacancies, loading, pages, currentPage, handlerPageChange }) => {
+  const [isMobile, setIsMobile] = useState(false);
+  const pageRangeDisplayed = isMobile ? 1 : 3;
+
+  function handleResize() {
+    setIsMobile(window.innerWidth < 480);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  });
+
   return (
     <>
       <div className={styles.vacancies__list}>
@@ -25,7 +39,7 @@ const VacanciesList: FC<VacanciesListProps> = ({ vacancies, loading, pages, curr
           breakLabel='...'
           nextLabel='>'
           onPageChange={handlerPageChange}
-          pageRangeDisplayed={3}
+          pageRangeDisplayed={pageRangeDisplayed}
           pageCount={pages}
           previousLabel='<'
           renderOnZeroPageCount={null}

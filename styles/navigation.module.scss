@@ -1,12 +1,41 @@
 @import "./resoures/variables.scss";
 
 .navigation {
+  @media (max-width: 992px) {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    height: 130vh;
+    z-index: 50;
+    right: 0;
+    background-color: $white;
+    width: 320px;
+    transition: $transition;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    transition: $transition;
+    transform: translateX(110%);
+    box-shadow: $shadow;
+    
+  }
+
   &__links {
     flex: 1 1 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     column-gap: 60px;
+
+    @media (max-width: 992px) {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0;
+      align-items: flex-start;
+      row-gap: 30px;
+    }
   }
 
   &__link {
@@ -14,6 +43,10 @@
     line-height: 20px;
     color: $black;
     transition: $transition;
+
+    @media (max-width: 992px) {
+      font-size: 20px;
+    }
 
     &.active {
       color: $blue500;

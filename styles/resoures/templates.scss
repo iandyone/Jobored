@@ -5,6 +5,10 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 20px;
+
+  @media (max-width: 550px) {
+    font-size: 18px;
+  }
 }
 
 %input {
@@ -47,12 +51,12 @@
   width: 100%;
   transition: $transition;
   transform: scale(1);
-  
+
   &:hover {
     transition: $transition;
     background-color: $blue400;
   }
-  
+
   &:active {
     transition: $transition;
     background-color: $blue600;
@@ -64,6 +68,18 @@
   font-size: 16px;
   line-height: 125%;
   color: $black;
+
+  @media (max-width: 550px) {
+    font-size: 14px;
+  }
+}
+
+%pagePadding {
+  padding: 40px 0 44px 0px;
+
+  @media (max-width: 992px) {
+    padding: 20px 0 34px 0px;
+  }
 }
 
 %content {
@@ -75,6 +91,10 @@
   padding: 24px;
   transition: $transition;
   overflow: hidden;
+
+  @media (max-width: 550px) {
+    padding: 16px;
+  }
 
   &.loading {
     @extend %loading;
@@ -90,15 +110,14 @@
 
 %loading {
   animation: shimmer 2s 0.2s infinite;
-  // background-image: linear-gradient(90deg,rgb(35, 33, 52) 35%, rgb(183, 214, 255) 30%,  rgb(35, 33, 52) 35%);
-  background-image: linear-gradient(90deg,  $gray200 40%, $white, $gray200  70%,);
+  background-image: linear-gradient(90deg, $gray200 40%, $white, $gray200 70%);
   background-size: 300%;
 }
 
 %pressed {
   transform: scale(1);
   transition: $transition;
-  
+
   &:active {
     transform: scale(0.85);
     transition: $transition;

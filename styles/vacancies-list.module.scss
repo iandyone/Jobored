@@ -41,6 +41,11 @@
       height: 100%;
       width: 100%;
       padding: 8px;
+
+      @media (max-width: 550px) {
+        font-size: 14px;
+        padding: 6px;
+    }
     }
 
     &:hover {

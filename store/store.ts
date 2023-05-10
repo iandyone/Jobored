@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { vacanciesApi } from "./api/vacancies-api";
 import filtersReducer from "./slices/filter-slice";
 import vacanciesReducer from "./slices/vacancies-slice";
+import menuReducer from "./slices/menu-slice";
 
 const store = configureStore({
   reducer: {
     filters: filtersReducer,
     vacancies: vacanciesReducer,
+    menu: menuReducer,
     [vacanciesApi.reducerPath]: vacanciesApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {

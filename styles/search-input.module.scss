@@ -4,6 +4,7 @@
 .search {
   position: relative;
   margin-bottom: 10px;
+ 
 
   &::before {
     content: "";
@@ -20,6 +21,7 @@
     @extend %input;
     padding-left: 36px;
     height: 48px;
+    padding-right: 110px;
   }
 
   &__button {

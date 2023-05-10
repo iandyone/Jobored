@@ -8,6 +8,10 @@
   flex-direction: column;
 
   &__heading {
-   @extend %errorHeading;
+    @extend %errorHeading;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
   }
 }
