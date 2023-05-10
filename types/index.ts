@@ -13,6 +13,7 @@ export interface ICategory {
   key: number;
   title: string;
 }
+
 export interface VacanciesSearchParams {
   page: number;
   keyword?: string;

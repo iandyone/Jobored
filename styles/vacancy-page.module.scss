@@ -34,11 +34,11 @@
     color: $black !important;
     font-size: 28px !important;
     font-weight: 700 !important;
-    
+
     @media (max-width: 992px) {
       font-size: 22px !important;
     }
-    
+
     span {
       overflow: auto;
       white-space: normal !important;
@@ -59,7 +59,7 @@
       font-size: 18px !important;
     }
     @media (max-width: 550px) {
-        font-size: 16px !important;
+      font-size: 16px !important;
     }
   }
 
@@ -94,7 +94,6 @@
       line-height: 140%;
 
       b {
-        // margin-top: 20px;
         margin-bottom: 16px;
       }
     }
@@ -129,6 +128,13 @@
         margin-left: 20px;
         line-height: 140%;
       }
+    }
+  }
+  &__error {
+    min-height: calc(100vh - $headerHeight);
+
+    @media (max-width: 992px) {
+      min-height: 100vh;
     }
   }
 }

@@ -57,8 +57,7 @@ export async function getCatalog() {
     const catalotResponse = await $axios.get<ICatalog[]>("/catalogues", {});
 
     if (catalotResponse.status === 200) {
-      const categories =
-        catalotResponse.data.map((category) => {
+      const categories = catalotResponse.data.map((category) => {
           return { key: category.key, title: category.title_trimmed };
         }) || [];
 

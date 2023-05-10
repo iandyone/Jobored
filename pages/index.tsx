@@ -1,14 +1,14 @@
 import { FC, useEffect } from "react";
-import { ICategory, IVacancy } from "@/types";
+import { ICategory } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
 import { getAuthorization, getCatalog, getVacancies } from "@/helpers/fetchers";
 import { setCatalog } from "@/store/slices/filter-slice";
 import { VacanciesResponse } from "@/types";
+import { setFavorites } from "@/store/slices/vacancies-slice";
 import Head from "next/head";
-import styles from "@/styles/Home.module.scss";
+import styles from "@/styles/main.module.scss";
 import FiltersBar from "@/components/filters-bar";
 import VacanciesBar from "@/components/vacancies-bar";
-import { setFavorites } from "@/store/slices/vacancies-slice";
 
 export async function getStaticProps() {
   const tokens = (await getAuthorization()) || "";
@@ -20,7 +20,7 @@ export async function getStaticProps() {
   };
 }
 
-interface HomeProps {
+interface MainPageProps {
   vacancies: VacanciesResponse;
   categories: ICategory[];
   tokens: {
@@ -29,7 +29,7 @@ interface HomeProps {
   };
 }
 
-const Home: FC<HomeProps> = ({ tokens, vacancies, categories }) => {
+const MainPage: FC<MainPageProps> = ({ tokens, vacancies, categories }) => {
   const dispatch = useDispatchTyped();
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Home: FC<HomeProps> = ({ tokens, vacancies, categories }) => {
   return (
     <>
       <Head>
-        <title>Jobored | Main</title>
+        <title>Jobored</title>
       </Head>
       <main className={styles.jobs}>
         <div className={`${styles.jobs__container} container`}>
@@ -60,4 +60,4 @@ const Home: FC<HomeProps> = ({ tokens, vacancies, categories }) => {
   );
 };
 
-export default Home;
+export default MainPage;
