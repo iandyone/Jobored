@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { LayoutProps } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
 import { closeSidesMenu } from "@/store/slices/menu-slice";
+import NextNProgress from "nextjs-progressbar";
 import Header from "../header";
 import Head from "next/head";
 
@@ -13,6 +14,7 @@ const inter = Inter({
 
 const AppLayout: FC<LayoutProps> = ({ children }) => {
   const dispatch = useDispatchTyped();
+  const progressBarConfig = { showSpinner: false };
 
   function handlerCloseMenu() {
     dispatch(closeSidesMenu());
@@ -26,6 +28,7 @@ const AppLayout: FC<LayoutProps> = ({ children }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className={inter.className} onClick={handlerCloseMenu}>
+        <NextNProgress color='#5e96fc' height={2} startPosition={0.2} options={progressBarConfig} />
         <Header />
         {children}
       </div>
