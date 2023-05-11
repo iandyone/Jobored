@@ -28,7 +28,7 @@ const Header: FC = () => {
             </Link>
           </div>
           <NavBar className={`${styles.header__navigation} ${burger && styles.active}`} />
-          <BurgerMenu className={styles.header__burger} isOpen={burger} handlerOnClick={(e) => handlerBurgerOnCLick(e)} />
+          <BurgerMenu className={styles.header__burger} isOpen={burger} handlerOnClick={handlerBurgerOnCLick} />
         </div>
       </div>
     </header>

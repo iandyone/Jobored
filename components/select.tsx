@@ -11,7 +11,7 @@ interface ISelect {
 const Select: FC<ISelect> = ({ className }) => {
   const { categories: menuVisability } = useSelectorTyped((store) => store.menu);
   const { category, categories } = useSelectorTyped((store) => store.filters);
-  const selectClassName = `${className} ${styles.select} ${category.title && styles.active} ${menuVisability && styles.selected}`;
+  const selectClassName = `${styles.select} ${category.title && styles.active} ${menuVisability && styles.selected} ${className}`;
   const dispatch = useDispatchTyped();
 
   function optionOnClick(e: MouseEvent<HTMLElement>) {
@@ -28,7 +28,7 @@ const Select: FC<ISelect> = ({ className }) => {
   }
 
   return (
-    <div className={selectClassName} onClick={(e) => setMenuVisibility(e)} data-elem='industry-select'>
+    <div className={selectClassName} onClick={setMenuVisibility} data-elem='industry-select'>
       <span>{category.title || "Выберите отрасль"}</span>
       <div className={`${styles.select__icon} ${menuVisability && styles.active}`}>
         <div className={styles.select__svg}>
@@ -37,15 +37,17 @@ const Select: FC<ISelect> = ({ className }) => {
           </svg>
         </div>
       </div>
-      <ul className={`${styles.select__menu} ${menuVisability && styles.active}`}>
-        {categories.map(({ key, title }) => {
-          return (
-            <li className={styles.select__option} onClick={optionOnClick} data-value={title} data-elem='industry-select' key={key}>
-              <span>{title}</span>
-            </li>
-          );
-        })}
-      </ul>
+      <div className={styles.select__menu}>
+        <ul className={`${styles.select__list} ${menuVisability && styles.active}`}>
+          {categories.map(({ key, title }) => {
+            return (
+              <li className={styles.select__option} onClick={optionOnClick} data-value={title} data-elem='industry-select' key={key}>
+                <span>{title}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

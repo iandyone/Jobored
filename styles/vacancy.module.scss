@@ -4,7 +4,7 @@
 .vacancy {
   @extend %content;
   row-gap: 12px;
-  min-height: 138px;
+  min-height: 145px;
   height: auto;
 
   @media (max-width: 550px) {

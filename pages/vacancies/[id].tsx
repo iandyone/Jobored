@@ -8,6 +8,7 @@ import parse from "html-react-parser";
 import styles from "../../styles/vacancy-page.module.scss";
 import EmptyState from "@/components/empty-state";
 import Heading from "@/components/heading";
+import Button from "@/components/button";
 
 const VacansyPage: FC = () => {
   const router = useRouter();
@@ -29,6 +30,10 @@ const VacansyPage: FC = () => {
     return { vacancyData, description, loading };
   }
 
+  function handlerEmptyButtonOnClick() {
+    router.push("/");
+  }
+
   if (!isLoading && (isError || !vacancyData?.vacancyRichText)) {
     return (
       <>
@@ -36,7 +41,8 @@ const VacansyPage: FC = () => {
           <title>Jobored | Vacancy Not Found</title>
         </Head>
         <EmptyState className={styles.vacancy__error}>
-          <Heading text='Вакансия не найдена' tag='h2' />
+          <Heading className={styles.vacancy__heading} text='Упс, здесь еще ничего нет!' tag='h2' />
+            <Button text='Поиск вакансий' className={styles.vacancy__button} onClick={handlerEmptyButtonOnClick} />
         </EmptyState>
       </>
     );

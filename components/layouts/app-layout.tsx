@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Inter } from "next/font/google";
 import { LayoutProps } from "@/types";
-import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
+import { useDispatchTyped } from "@/hooks/redux";
 import { closeSidesMenu } from "@/store/slices/menu-slice";
 import Header from "../header";
 import Head from "next/head";

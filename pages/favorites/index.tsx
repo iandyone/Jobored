@@ -76,7 +76,7 @@ const Favorites: FC = () => {
     return (
       <FavoritesLayout className={styles.favorites__empty}>
         <EmptyState>
-            <Heading className={styles.favorites__heading} text='Вакансий не найдено' tag='h2' />
+            <Heading className={styles.favorites__heading} text='Упс, здесь еще ничего нет!' tag='h2' />
             <Button text='Поиск вакансий' className={styles.favorites__button} onClick={handlerEmptyButtonOnClick} />
         </EmptyState>
       </FavoritesLayout>

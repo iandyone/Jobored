@@ -137,4 +137,33 @@
       min-height: 100vh;
     }
   }
+
+  &__heading {
+    @extend %errorHeading;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+  }
+
+  &__button {
+    background: $blue100 !important;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 155%;
+    color: $blue600;
+    max-width: 165px;
+
+    &:hover {
+      transition: $transition;
+      color: $white !important;
+      background-color: $blue400 !important;
+    }
+
+    &:active {
+      transition: $transition;
+      color: $white !important;
+      background-color: $blue600 !important;
+    }
+  }
 }

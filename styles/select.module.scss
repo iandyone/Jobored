@@ -47,7 +47,6 @@
     }
 
     &.active {
-      
       svg {
         fill: $blue500;
       }
@@ -67,22 +66,32 @@
     position: absolute;
     top: 50px;
     left: -1px;
+    right: -1px;
+    border-radius: 8px;
+    padding: 0px 4px;
+    overflow: hidden;
+    background: $white;
+    box-shadow: $shadow;
+    z-index: 100;
+  }
+  
+  &__list {
+    display: none;
     height: auto;
     max-height: 275px;
-    width: 101%;
+    width: 102%;
     background: $white;
-    border-radius: 8px;
-    order: 2;
-    overflow: auto;
-    display: none;
     padding-left: 4px;
-    box-shadow: $shadow;
-    
+    overflow: auto;
+
+    @media (max-width: 992px) {
+        max-height: 200px;
+    }
+
     &.active {
       display: block;
       z-index: 50;
       transition: $transition;
-
     }
 
     &::-webkit-scrollbar {
