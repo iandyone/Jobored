@@ -9,6 +9,7 @@ import Head from "next/head";
 import styles from "@/styles/main.module.scss";
 import FiltersBar from "@/components/filters-bar";
 import VacanciesBar from "@/components/vacancies-bar";
+import FiltersMenu from "@/components/filters-menu";
 
 export async function getStaticProps() {
   const tokens = (await getAuthorization()) || "";
@@ -34,7 +35,7 @@ const MainPage: FC<MainPageProps> = ({ tokens, vacancies, categories }) => {
 
   useEffect(() => {
     dispatch(setCatalog(categories));
-    
+
     if (tokens) {
       localStorage.setItem("access", tokens.accessToken);
       localStorage.setItem("refresh", tokens.refreshToken);
@@ -53,6 +54,7 @@ const MainPage: FC<MainPageProps> = ({ tokens, vacancies, categories }) => {
           <div className={styles.jobs__body}>
             <FiltersBar />
             <VacanciesBar vacancies={Array.from(vacancies.objects)} />
+            <FiltersMenu/>
           </div>
         </div>
       </main>

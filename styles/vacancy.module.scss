@@ -80,7 +80,7 @@
     @media (max-width: 550px) {
         display: flex;
     }
-
+    
     span {
       overflow: hidden;
       white-space: nowrap;
@@ -89,6 +89,7 @@
       max-width: 685px;
       height: 100%;
       letter-spacing: 0.02em;
+      line-height: 140%;
 
       @media (max-width: 1160px) {
         max-width: 58vw;

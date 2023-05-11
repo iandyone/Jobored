@@ -8,17 +8,21 @@ import SalaryInput from "./salary-input";
 import Heading from "./heading";
 import Button from "./button";
 
-const FiltersBar: FC = () => {
+interface FiltersBarProps {
+  className?: string;
+}
+
+const FiltersBar: FC<FiltersBarProps> = ({ className }) => {
   const dispatch = useDispatchTyped();
-  
+
   function setDefaultFilters() {
-    dispatch(resetFilters())
+    dispatch(resetFilters());
     dispatch(setFilters());
     dispatch(setPage(1));
   }
 
   return (
-    <aside className={styles.filters}>
+    <aside className={`${styles.filters} ${className}`}>
       <div className={styles.filters__header}>
         <Heading className={styles.filters__title} tag='h2' text='Фильтры' />
         <div className={styles.filters__reset} onClick={setDefaultFilters}>

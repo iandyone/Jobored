@@ -1,5 +1,6 @@
 import { useDispatchTyped } from "@/hooks/redux";
 import { setFilters } from "@/store/slices/filter-slice";
+import { setFiltersMenuVisibility } from "@/store/slices/menu-slice";
 import { setPage } from "@/store/slices/vacancies-slice";
 import { FC } from "react";
 
@@ -14,6 +15,7 @@ const Button: FC<ButtonProps> = ({ className, text, onClick }) => {
 
   function applyFilters() {
     dispatch(setFilters());
+    dispatch(setFiltersMenuVisibility(false));
     dispatch(setPage(1));
   }
 

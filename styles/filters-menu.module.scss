@@ -1,0 +1,77 @@
+@import "./resoures/variables.scss";
+@import "./resoures/templates.scss";
+
+.menu {
+  position: fixed;
+
+
+  @media (max-width: 992px) {
+    display: flex;
+  }
+
+  &__body {
+    width: 100%;
+    padding-bottom: 20px;
+    position: fixed;
+    background-color: $gray100;
+    border-radius: 32px 32px 0 0;
+    border: 1px solid $gray200;
+    bottom: 0;
+    left: 0px;
+    right: 0px;
+    height: 380px;
+    box-shadow: $shadow;
+    transform: translateY(100%);
+    transition: $transition;
+    z-index: 150;
+
+    &.active {
+      transform: translateY(0%);
+      transition: $transition;
+    }
+  }
+
+  &__button {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $white;
+    position: fixed;
+    left: 20px;
+    bottom: 34px;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid $gray200;
+    @extend %button;
+
+    @media (max-width: 992px) {
+      display: flex;
+    }
+
+    svg {
+      fill: $blue500;
+    }
+
+    &:hover,
+    &:active {
+      svg {
+        fill: $white;
+        transition: $transition;
+      }
+    }
+  }
+
+  &__filters {
+    display: block;
+    width: 100%;
+    max-width: 755px;
+    padding: 20px;
+    margin: 0px auto;
+    border-color: transparent;
+    background-color: $gray100;
+    border-radius: 32px 32px 0 0;
+  }
+}
