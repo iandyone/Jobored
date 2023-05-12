@@ -81,7 +81,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
     return (
       <VacanciesLayout>
         <EmptyState>
-          <Heading className={styles.vacancies__heading} text='Вакансий не найдено' tag='h2' />
+          <Heading className={styles.vacancies__heading} text='Упс, здесь еще ничего нет!' tag='h2' />
         </EmptyState>
       </VacanciesLayout>
     );

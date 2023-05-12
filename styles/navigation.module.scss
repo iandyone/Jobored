@@ -19,6 +19,10 @@
     transition: $transition;
     transform: translateX(110%);
     box-shadow: $shadow;
+
+    @media (max-width: 992px) {
+        padding-top: 50px;
+    }
     
   }
 

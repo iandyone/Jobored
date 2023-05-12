@@ -30,12 +30,12 @@ const SalaryInput: FC<SalaryInputProps> = ({ placeholder, salaryType }) => {
     const target = e.target as HTMLElement;
 
     if (target.classList.contains(`${styles.increase}`)) {
-      salaryType === "min" ? dispatch(setMinSalaryValue(+value! + 1)) : dispatch(setMaxSalaryValue(+value! + 1));
+      salaryType === "min" ? dispatch(setMinSalaryValue(+value! + 500)) : dispatch(setMaxSalaryValue(+value! + 500));
       return;
     }
 
     if (target.classList.contains(`${styles.reduce}`) && +value) {
-      salaryType === "min" ? dispatch(setMinSalaryValue(+value! - 1)) : dispatch(setMaxSalaryValue(+value! - 1));
+      salaryType === "min" ? dispatch(setMinSalaryValue(+value! - 500)) : dispatch(setMaxSalaryValue(+value! - 500));
       return;
     }
   }

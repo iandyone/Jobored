@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { setFavorites } from "@/store/slices/vacancies-slice";
 import { useDispatchTyped } from "@/hooks/redux";
 import styles from "../styles/vacancy.module.scss";
+import { setFiltersMenuVisibility } from "@/store/slices/menu-slice";
 
 interface IVacancyProps {
   loading?: boolean;
@@ -47,6 +48,7 @@ const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} 
 
   function saveVacancy(e: MouseEvent<HTMLElement>) {
     const favorites: IFavorite = JSON.parse(localStorage.getItem("favorites")!) || ({} as IFavorite);
+    dispatch(setFiltersMenuVisibility(false));
     const isVacancyAlredySaved = vacancy.id in favorites;
 
     if (isVacancyAlredySaved) {
