@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
 interface MenuSliceState {
   burger: boolean;
   filters: boolean;

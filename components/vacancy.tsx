@@ -1,14 +1,14 @@
 import { FC, MouseEvent, useEffect, useState } from "react";
-import { IFavorite, IVacancy } from "@/types";
-import { useRouter } from "next/router";
-import { setFavorites } from "@/store/slices/vacancies-slice";
-import { useDispatchTyped } from "@/hooks/redux";
-import styles from "../styles/vacancy.module.scss";
 import { setFiltersMenuVisibility } from "@/store/slices/menu-slice";
+import { IFavorite, IVacancy } from "@/types";
+import { useDispatchTyped } from "@/hooks/redux";
+import { setFavorites } from "@/store/slices/vacancies-slice";
+import { useRouter } from "next/router";
+import styles from "../styles/vacancy.module.scss";
 
 interface IVacancyProps {
-  loading?: boolean;
   vacancy: IVacancy;
+  loading?: boolean;
   classNames?: {
     container?: string;
     title?: string;
@@ -16,11 +16,11 @@ interface IVacancyProps {
   };
 }
 
-const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} }) => {
+const Vacancy: FC<IVacancyProps> = ({ vacancy, loading = false, classNames = {} }) => {
+  const [isSaved, setSaved] = useState(false);
+  const dispatch = useDispatchTyped();
   const salary = getSalary();
   const router = useRouter();
-  const dispatch = useDispatchTyped();
-  const [isSaved, setSaved] = useState(false);
 
   function getSalary() {
     if (vacancy) {
@@ -48,8 +48,8 @@ const Vacancy: FC<IVacancyProps> = ({ loading = false, vacancy, classNames = {} 
 
   function saveVacancy(e: MouseEvent<HTMLElement>) {
     const favorites: IFavorite = JSON.parse(localStorage.getItem("favorites")!) || ({} as IFavorite);
-    dispatch(setFiltersMenuVisibility(false));
     const isVacancyAlredySaved = vacancy.id in favorites;
+    dispatch(setFiltersMenuVisibility(false));
 
     if (isVacancyAlredySaved) {
       delete favorites[vacancy.id];

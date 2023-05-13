@@ -1,14 +1,15 @@
-import { FC, useEffect, useState } from "react";
-import { IVacancy, handlerPageChangeProps } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
+import { IVacancy, handlerPageChangeProps } from "@/types";
+import { FC, useEffect, useState } from "react";
 import { setFavorites } from "@/store/slices/vacancies-slice";
 import { useRouter } from "next/router";
+import { scrollTop } from "@/helpers/animations";
+import FavoritesLayout from "@/components/layouts/favorites-layout";
 import VacanciesList from "@/components/vacancies-list";
 import EmptyState from "@/components/empty-state";
 import Heading from "@/components/heading";
-import FavoritesLayout from "@/components/layouts/favorites-layout";
-import styles from "../../styles/favorites.module.scss";
 import Button from "@/components/button";
+import styles from "../../styles/favorites.module.scss";
 
 const Favorites: FC = () => {
   const vacanciesPerPage = +process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE!;
@@ -33,6 +34,7 @@ const Favorites: FC = () => {
   function handlerPageChange({ selected }: handlerPageChangeProps) {
     setCurrentPage(selected + 1);
     setVacancies(getVacancies(selected + 1));
+    scrollTop()
   }
 
   function getFavorites() {
@@ -76,8 +78,8 @@ const Favorites: FC = () => {
     return (
       <FavoritesLayout className={styles.favorites__empty}>
         <EmptyState>
-            <Heading className={styles.favorites__heading} text='Упс, здесь еще ничего нет!' tag='h2' />
-            <Button text='Поиск вакансий' className={styles.favorites__button} onClick={handlerEmptyButtonOnClick} />
+          <Heading className={styles.favorites__heading} text='Упс, здесь еще ничего нет!' tag='h2' />
+          <Button text='Поиск вакансий' className={styles.favorites__button} onClick={handlerEmptyButtonOnClick} />
         </EmptyState>
       </FavoritesLayout>
     );

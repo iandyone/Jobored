@@ -1,5 +1,5 @@
-@import "./resoures/variables.scss";
-@import "./resoures/templates.scss";
+@import "./resources/variables.scss";
+@import "./resources/templates.scss";
 
 .header {
   background-color: $white;
@@ -7,9 +7,9 @@
   z-index: 100;
 
   @media (max-width: 992px) {
-      position: fixed;
-      box-shadow: $shadow2;
-      width: 100%;
+    position: fixed;
+    box-shadow: $shadow2;
+    width: 100%;
   }
 
   &__container {

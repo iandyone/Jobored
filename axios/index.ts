@@ -19,11 +19,11 @@ $axios.interceptors.response.use(
       originalRequest._isRetry = true;
       try {
         const tokens = await updateAuthTokens();
+        document.cookie = `refresh=${tokens?.refreshToken}`;
         localStorage.setItem("access", tokens?.accessToken!);
-        localStorage.setItem("refresh", tokens?.refreshToken!);
         await $axios.request(originalRequest);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
     throw err;

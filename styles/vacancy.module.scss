@@ -1,5 +1,5 @@
-@import "./resoures/variables.scss";
-@import "./resoures/templates.scss";
+@import "./resources/variables.scss";
+@import "./resources/templates.scss";
 
 .vacancy {
   @extend %content;
@@ -23,8 +23,8 @@
     column-gap: 33px;
 
     @media (max-width: 550px) {
-        flex-direction: column-reverse;
-        row-gap: 3px;
+      flex-direction: column-reverse;
+      row-gap: 3px;
     }
   }
 
@@ -47,7 +47,7 @@
         top: 0%;
 
         @media (max-width: 550px) {
-            display: none;
+          display: none;
         }
       }
     }
@@ -78,9 +78,9 @@
     overflow: hidden;
 
     @media (max-width: 550px) {
-        display: flex;
+      display: flex;
     }
-    
+
     span {
       overflow: hidden;
       white-space: nowrap;
@@ -99,8 +99,8 @@
         max-width: 55vw;
       }
 
-      @media (max-width: 980px) {
-        max-width: 78vw;
+      @media (max-width: 992px) {
+        max-width: 73vw;
       }
 
       @media (max-width: 650px) {

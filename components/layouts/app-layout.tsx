@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { Inter } from "next/font/google";
-import { LayoutProps } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
 import { closeSidesMenu } from "@/store/slices/menu-slice";
+import { LayoutProps } from "@/types";
+import { Inter } from "next/font/google";
+import { FC } from "react";
 import NextNProgress from "nextjs-progressbar";
 import Header from "../header";
 import Head from "next/head";
@@ -13,8 +13,8 @@ const inter = Inter({
 });
 
 const AppLayout: FC<LayoutProps> = ({ children }) => {
-  const dispatch = useDispatchTyped();
   const progressBarConfig = { showSpinner: false };
+  const dispatch = useDispatchTyped();
 
   function handlerCloseMenu() {
     dispatch(closeSidesMenu());

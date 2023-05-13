@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 import styles from "../styles/burger-menu.module.scss";
 
 interface BurgerMenuProps {
   className: string;
   isOpen: boolean;
-  handlerOnClick: (e:any) => void;
+  handlerOnClick: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const BurgerMenu: FC<BurgerMenuProps> = ({ className, isOpen, handlerOnClick }) => {

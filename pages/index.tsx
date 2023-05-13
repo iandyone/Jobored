@@ -1,14 +1,14 @@
-import { FC, useEffect } from "react";
-import { ICategory } from "@/types";
-import { useDispatchTyped } from "@/hooks/redux";
-import { getAuthorization, getCatalog, getVacancies } from "@/helpers/fetchers";
-import { setCatalog } from "@/store/slices/filter-slice";
+import { getAuthorization, getCatalog, getVacancies, setRefreshToken } from "@/helpers/fetchers";
 import { VacanciesResponse } from "@/types";
+import { useDispatchTyped } from "@/hooks/redux";
+import { FC, useEffect } from "react";
 import { setFavorites } from "@/store/slices/vacancies-slice";
-import Head from "next/head";
-import FiltersBar from "@/components/filters-bar";
+import { setCatalog } from "@/store/slices/filter-slice";
+import { ICategory } from "@/types";
 import VacanciesBar from "@/components/vacancies-bar";
 import FiltersMenu from "@/components/filters-menu";
+import FiltersBar from "@/components/filters-bar";
+import Head from "next/head";
 import styles from "@/styles/main.module.scss";
 
 export async function getStaticProps() {
@@ -30,19 +30,19 @@ interface MainPageProps {
   };
 }
 
-const MainPage: FC<MainPageProps> = ({ tokens, vacancies, categories }) => {
-  const vacanciesList = Array.from(vacancies.objects) || []
+const MainPage: FC<MainPageProps> = ({ vacancies, categories, tokens }) => {
+  const vacanciesList = Array.from(vacancies.objects) || [];
   const dispatch = useDispatchTyped();
 
   useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")!) || [];
+    dispatch(setFavorites(Object.values(favorites)));
     dispatch(setCatalog(categories));
 
     if (tokens) {
       localStorage.setItem("access", tokens.accessToken);
-      localStorage.setItem("refresh", tokens.refreshToken);
+      setRefreshToken(tokens.refreshToken);
     }
-    const favorites = JSON.parse(localStorage.getItem("favorites")!) || [];
-    dispatch(setFavorites(Object.values(favorites)));
   }, []);
 
   return (
@@ -55,7 +55,7 @@ const MainPage: FC<MainPageProps> = ({ tokens, vacancies, categories }) => {
           <div className={styles.jobs__body}>
             <FiltersBar />
             <VacanciesBar vacancies={Array.from(vacanciesList)} />
-            <FiltersMenu/>
+            <FiltersMenu />
           </div>
         </div>
       </main>

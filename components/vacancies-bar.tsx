@@ -1,13 +1,14 @@
-import { FC, useEffect, useState } from "react";
-import { vacanciesApi } from "@/store/api/vacancies-api";
-import { IVacancy, handlerPageChangeProps } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
+import { IVacancy, handlerPageChangeProps } from "@/types";
+import { FC, useEffect, useState } from "react";
 import { setPage, setVacancies } from "@/store/slices/vacancies-slice";
-import styles from "../styles/vacancies.module.scss";
-import EmptyState from "./empty-state";
-import Heading from "./heading";
+import { vacanciesApi } from "@/store/api/vacancies-api";
+import { scrollTop } from "@/helpers/animations";
 import VacanciesLayout from "./layouts/vacancies-layout";
 import VacanciesList from "./vacancies-list";
+import EmptyState from "./empty-state";
+import Heading from "./heading";
+import styles from "../styles/vacancies.module.scss";
 
 interface VacanciesBarProps {
   vacancies: IVacancy[];
@@ -21,8 +22,8 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
   const skipFetchCondition = !Object.keys(activeFilters).length && currentPage === 1;
 
   const { isFetching, isLoading, data } = vacanciesApi.useFetchVacanciesQuery(vacanciesConfig, { skip: skipFetchCondition });
-  const loading = isFetching || isLoading;
   const [pages, setPages] = useState(getPageCounter());
+  const loading = isFetching || isLoading;
   const vacancies = getVacancies();
 
   function getVacancies() {
@@ -38,8 +39,8 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
   }
 
   function getPageCounter() {
-    const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE;
     const vavanciesPerRequest = process.env.NEXT_PUBLIC_VACANCIES_PER_REQUEST;
+    const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE;
     const maxPages = +vavanciesPerRequest! / +vacanciesPerPage!;
 
     if (data) {
@@ -52,6 +53,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
 
   function handlerPageChange({ selected }: handlerPageChangeProps) {
     dispatch(setPage(selected + 1));
+    scrollTop();
   }
 
   function getVacanciesRequestConfig() {
@@ -72,7 +74,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
 
     return (
       <VacanciesLayout>
-        <VacanciesList currentPage={currentPage} handlerPageChange={handlerPageChange} pages={pages} vacancies={vacancies} loading={loading}/>
+        <VacanciesList currentPage={currentPage} handlerPageChange={handlerPageChange} pages={pages} vacancies={vacancies} loading={loading} />
       </VacanciesLayout>
     );
   }
@@ -89,7 +91,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
 
   return (
     <VacanciesLayout>
-      <VacanciesList currentPage={currentPage} handlerPageChange={handlerPageChange} pages={pages} vacancies={vacancies} loading={loading}/>
+      <VacanciesList currentPage={currentPage} handlerPageChange={handlerPageChange} pages={pages} vacancies={vacancies} loading={loading} />
     </VacanciesLayout>
   );
 };

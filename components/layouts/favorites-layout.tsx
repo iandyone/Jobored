@@ -11,9 +11,7 @@ const FavoritesLayout: FC<LayoutProps> = ({ children, className }) => {
       </Head>
       <section className={`${styles.favorites} ${className}`}>
         <div className={`${styles.favorites__container} container`}>
-          <div className={styles.favorites__body}>
-            {children}
-          </div>
+          <div className={styles.favorites__body}>{children}</div>
         </div>
       </section>
     </>

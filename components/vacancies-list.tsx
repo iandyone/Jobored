@@ -1,8 +1,8 @@
 import { IVacancy, handlerPageChangeProps } from "@/types";
 import { FC, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import styles from "../styles/vacancies-list.module.scss";
 import Vacancy from "./vacancy";
+import styles from "../styles/vacancies-list.module.scss";
 
 interface VacanciesListProps {
   vacancies: IVacancy[];
@@ -12,7 +12,7 @@ interface VacanciesListProps {
   handlerPageChange: ({ selected }: handlerPageChangeProps) => void;
 }
 
-const VacanciesList: FC<VacanciesListProps> = ({ vacancies, loading, pages, currentPage, handlerPageChange }) => {
+const VacanciesList: FC<VacanciesListProps> = ({ vacancies, pages, currentPage, loading, handlerPageChange }) => {
   const [isMobile, setIsMobile] = useState(false);
   const pageRangeDisplayed = isMobile ? 1 : 3;
 

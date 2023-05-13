@@ -1,6 +1,6 @@
+import { setFiltersMenuVisibility } from "@/store/slices/menu-slice";
 import { useDispatchTyped } from "@/hooks/redux";
 import { setFilters } from "@/store/slices/filter-slice";
-import { setFiltersMenuVisibility } from "@/store/slices/menu-slice";
 import { setPage } from "@/store/slices/vacancies-slice";
 import { FC } from "react";
 

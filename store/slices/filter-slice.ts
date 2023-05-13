@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICategory, IFilter } from "@/types";
 
-type ISalary = number | string;
+export type ISalary = number | string;
 
 interface filtersState {
   categories: ICategory[];

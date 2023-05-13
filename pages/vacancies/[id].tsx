@@ -2,13 +2,13 @@ import { useSelectorTyped } from "@/hooks/redux";
 import { vacanciesApi } from "@/store/api/vacancies-api";
 import { useRouter } from "next/router";
 import { FC } from "react";
-import Head from "next/head";
-import Vacancy from "@/components/vacancy";
-import parse from "html-react-parser";
-import styles from "../../styles/vacancy-page.module.scss";
 import EmptyState from "@/components/empty-state";
+import Vacancy from "@/components/vacancy";
 import Heading from "@/components/heading";
 import Button from "@/components/button";
+import Head from "next/head";
+import parse from "html-react-parser";
+import styles from "../../styles/vacancy-page.module.scss";
 
 const VacansyPage: FC = () => {
   const router = useRouter();
@@ -42,7 +42,7 @@ const VacansyPage: FC = () => {
         </Head>
         <EmptyState className={styles.vacancy__error}>
           <Heading className={styles.vacancy__heading} text='Упс, здесь еще ничего нет!' tag='h2' />
-            <Button text='Поиск вакансий' className={styles.vacancy__button} onClick={handlerEmptyButtonOnClick} />
+          <Button text='Поиск вакансий' className={styles.vacancy__button} onClick={handlerEmptyButtonOnClick} />
         </EmptyState>
       </>
     );

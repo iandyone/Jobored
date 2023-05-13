@@ -1,12 +1,12 @@
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setBurgerMenuVisibility, setFiltersMenuVisibility } from "@/store/slices/menu-slice";
 import { FC, MouseEvent } from "react";
-import styles from "../styles/header.module.scss";
+import BurgerMenu from "./burger-menu";
+import NavBar from "./navbar";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../public/logo.svg";
-import NavBar from "./navbar";
-import BurgerMenu from "./burger-menu";
+import styles from "../styles/header.module.scss";
 
 const Header: FC = () => {
   const dispatch = useDispatchTyped();
@@ -20,7 +20,7 @@ const Header: FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.header__container + " container"}>
+      <div className={`${styles.header__container} container`}>
         <div className={styles.header__body}>
           <div className={styles.header__logo}>
             <Link href='/'>

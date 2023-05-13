@@ -5,7 +5,7 @@ const login = process.env.NEXT_PUBLIC_LOGIN;
 const password = process.env.NEXT_PUBLIC_PASSWORD;
 const client_id = process.env.NEXT_PUBLIC_CLIEND_ID;
 const client_secret = process.env.NEXT_PUBLIC_X_API_APP_ID;
-const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE
+const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE;
 
 export async function getAuthorization() {
   try {
@@ -16,6 +16,7 @@ export async function getAuthorization() {
     if (authResponse.status === 200) {
       const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
       const refreshToken = `${authResponse.data.token_type} ${authResponse.data.refresh_token}`;
+
       $axios.interceptors.request.use((config) => {
         config.headers.Authorization = accessToken;
         return config;
@@ -28,12 +29,12 @@ export async function getAuthorization() {
       return "";
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return "";
   }
 }
 
-export async function getVacancies({ page = 1, count = vacanciesPerPage}) {
+export async function getVacancies({ page = 1, count = vacanciesPerPage }) {
   try {
     const vacanciesResponse = await $axios.get<VacanciesResponse>("/vacancies", {
       params: { page, count },
@@ -47,7 +48,7 @@ export async function getVacancies({ page = 1, count = vacanciesPerPage}) {
       return [];
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [];
   }
 }
@@ -57,7 +58,8 @@ export async function getCatalog() {
     const catalotResponse = await $axios.get<ICatalog[]>("/catalogues", {});
 
     if (catalotResponse.status === 200) {
-      const categories = catalotResponse.data.map((category) => {
+      const categories =
+        catalotResponse.data.map((category) => {
           return { key: category.key, title: category.title_trimmed };
         }) || [];
 
@@ -68,7 +70,7 @@ export async function getCatalog() {
       return [];
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return [];
   }
 }
@@ -85,13 +87,13 @@ export async function getVacancy({ id = "" }) {
       return [];
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
 export async function updateAuthTokens() {
   try {
-    const refreshToken = localStorage.getItem("refresh");
+    const refreshToken = getRefreshTokenFromCookie();
     const updateResponse = await $axios.get<IAuthResponse>(`/refresh_token`, {
       params: { client_id, client_secret, refresh_token: refreshToken },
     });
@@ -99,14 +101,34 @@ export async function updateAuthTokens() {
     if (updateResponse.status === 200) {
       const accessToken = `${updateResponse.data.token_type} ${updateResponse.data.access_token}`;
       const refreshToken = `${updateResponse.data.token_type} ${updateResponse.data.refresh_token}`;
-      return {accessToken, refreshToken}
+
+      setRefreshToken(refreshToken);
+      return { accessToken, refreshToken };
     }
 
     if (updateResponse.status === 500) {
-      const message = "Возникла ошибка при обновлении токенов доступа";
-      console.log(message);
+      console.error("Возникла ошибка при обновлении токенов доступа");
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
+}
+
+export function setRefreshToken(refreshToken: string) {
+  const currentDate = Date.now();
+  const refreshCookieEndDate = new Date(currentDate);
+  
+  refreshCookieEndDate.setDate(refreshCookieEndDate.getDate() + 30);
+  document.cookie = `refresh=${refreshToken}; expires=${refreshCookieEndDate.toUTCString()}; secure`;
+}
+
+function getRefreshTokenFromCookie() {
+  const refreshTokenCookie = document.cookie.split(`; `).find((cookie) => cookie.includes("refresh"));
+
+  if (refreshTokenCookie) {
+    const refreshToken = refreshTokenCookie.split("=")[1];
+    return refreshToken;
+  }
+
+  console.error("Ошибка - пользователь не авторизован");
 }

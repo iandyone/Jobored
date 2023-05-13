@@ -1,8 +1,6 @@
 import { IFilter, IVacancy, VacanciesResponse } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// interface
-
 export const vacanciesApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,

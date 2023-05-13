@@ -1,4 +1,4 @@
-@import "./resoures/variables.scss";
+@import "./resources/variables.scss";
 
 .vacancies {
   &__list {
@@ -32,7 +32,7 @@
     justify-content: center;
     align-items: center;
     user-select: none;
-    transition: border .3s ease;
+    transition: border 0.3s ease;
 
     a {
       display: flex;
@@ -45,7 +45,7 @@
       @media (max-width: 550px) {
         font-size: 14px;
         padding: 6px;
-    }
+      }
     }
 
     &:hover {
@@ -57,7 +57,7 @@
     &.active {
       background: $blue500;
       color: $white;
-      border-color: $blue500; 
+      border-color: $blue500;
 
       &:hover {
         cursor: default;

@@ -1,8 +1,8 @@
-import { ChangeEvent, FC } from "react";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
+import { ChangeEvent, FC } from "react";
 import { setTitle } from "@/store/slices/filter-slice";
-import styles from "../styles/search-input.module.scss";
 import Button from "./button";
+import styles from "../styles/search-input.module.scss";
 
 interface SearchInputProps {
   placeholder?: string;

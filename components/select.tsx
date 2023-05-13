@@ -1,7 +1,7 @@
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
-import { MouseEvent, FC } from "react";
-import { setCategory } from "@/store/slices/filter-slice";
 import { setCategoriesMenuVisibility } from "@/store/slices/menu-slice";
+import { MouseEvent, FC } from "react";
+import CategoryInput from "./category-input";
 import styles from "../styles/select.module.scss";
 
 interface ISelect {
@@ -13,14 +13,6 @@ const Select: FC<ISelect> = ({ className }) => {
   const { category, categories } = useSelectorTyped((store) => store.filters);
   const selectClassName = `${styles.select} ${category.title && styles.active} ${menuVisability && styles.selected} ${className}`;
   const dispatch = useDispatchTyped();
-
-  function optionOnClick(e: MouseEvent<HTMLElement>) {
-    const target = e.target as HTMLElement;
-    const element = target.closest("li");
-    const category = element!.getAttribute("data-value");
-    const currentCategory = categories.find((categoryItem) => categoryItem.title === category);
-    dispatch(setCategory(currentCategory!));
-  }
 
   function setMenuVisibility(e: MouseEvent<HTMLElement>) {
     dispatch(setCategoriesMenuVisibility(!menuVisability));
@@ -41,8 +33,8 @@ const Select: FC<ISelect> = ({ className }) => {
         <ul className={`${styles.select__list} ${menuVisability && styles.active}`}>
           {categories.map(({ key, title }) => {
             return (
-              <li className={styles.select__option} onClick={optionOnClick} data-value={title} data-elem='industry-select' key={key}>
-                <span>{title}</span>
+              <li className={styles.select__option} data-elem='industry-select' key={key}>
+                <CategoryInput category={title} />
               </li>
             );
           })}

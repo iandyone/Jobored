@@ -1,12 +1,13 @@
-import { FC } from "react";
-import { useDispatchTyped } from "@/hooks/redux";
+import { setFiltersMenuVisibility } from "@/store/slices/menu-slice";
 import { resetFilters, setFilters } from "@/store/slices/filter-slice";
+import { useDispatchTyped } from "@/hooks/redux";
 import { setPage } from "@/store/slices/vacancies-slice";
-import styles from "../styles/filters-bar.module.scss";
-import Select from "./select";
+import { FC } from "react";
 import SalaryInput from "./salary-input";
 import Heading from "./heading";
 import Button from "./button";
+import Select from "./select";
+import styles from "../styles/filters-bar.module.scss";
 
 interface FiltersBarProps {
   className?: string;
@@ -18,6 +19,7 @@ const FiltersBar: FC<FiltersBarProps> = ({ className }) => {
   function setDefaultFilters() {
     dispatch(resetFilters());
     dispatch(setFilters());
+    dispatch(setFiltersMenuVisibility(false));
     dispatch(setPage(1));
   }
 

@@ -1,9 +1,8 @@
-@import "./resoures/variables.scss";
-@import "./resoures/templates.scss";
+@import "./resources/variables.scss";
+@import "./resources/templates.scss";
 
 .menu {
   position: fixed;
-
 
   @media (max-width: 992px) {
     display: flex;
@@ -21,7 +20,7 @@
     right: 0px;
     height: 380px;
     box-shadow: $shadow;
-    transform: translateY(100%);
+    transform: translateY(150%);
     transition: $transition;
     z-index: 150;
 
@@ -33,17 +32,20 @@
 
   &__button {
     display: none;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 10px !important;
     align-items: center;
     background-color: $white;
     position: fixed;
-    left: 20px;
-    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10%;
     padding: 5px;
-    width: 40px;
+    width: 120px;
+    color: $black;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 20px;
+    font-size: 16px;
     border: 1px solid $gray200;
     @extend %button;
 

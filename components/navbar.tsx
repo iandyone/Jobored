@@ -1,9 +1,9 @@
-import { FC, MouseEvent } from "react";
-import { useRouter } from "next/router";
 import { useDispatchTyped } from "@/hooks/redux";
 import { closeSidesMenu } from "@/store/slices/menu-slice";
-import styles from "../styles/navigation.module.scss";
+import { FC, MouseEvent } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import styles from "../styles/navigation.module.scss";
 
 interface NavBarProps {
   className?: string;

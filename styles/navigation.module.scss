@@ -1,4 +1,4 @@
-@import "./resoures/variables.scss";
+@import "./resources/variables.scss";
 
 .navigation {
   @media (max-width: 992px) {
@@ -21,9 +21,8 @@
     box-shadow: $shadow;
 
     @media (max-width: 992px) {
-        padding-top: 50px;
+      padding-top: 50px;
     }
-    
   }
 
   &__links {
