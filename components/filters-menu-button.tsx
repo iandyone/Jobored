@@ -1,5 +1,5 @@
-import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { setBurgerMenuVisibility, setFiltersMenuVisibility } from "@/store/slices/menu-slice";
+import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
 import { FC, MouseEvent } from "react";
 import styles from "../styles/filters-bar-menu-button.module.scss";
 
@@ -7,10 +7,10 @@ const FiltersMenuButton: FC = () => {
   const { filters } = useSelectorTyped((store) => store.menu);
   const dispatch = useDispatchTyped();
 
-  function openFiltersMenu(e: MouseEvent<HTMLElement>) {
+  function openFiltersMenu(event: MouseEvent<HTMLElement>) {
     dispatch(setBurgerMenuVisibility(false));
     dispatch(setFiltersMenuVisibility(!filters));
-    e.stopPropagation();
+    event.stopPropagation();
   }
 
   return (

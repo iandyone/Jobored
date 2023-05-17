@@ -46,7 +46,7 @@ const Vacancy: FC<IVacancyProps> = ({ vacancy, loading = false, classNames = {} 
     router.push(`/vacancies/${vacancy!.id}`);
   }
 
-  function saveVacancy(e: MouseEvent<HTMLElement>) {
+  function saveVacancy(event: MouseEvent<HTMLElement>) {
     const favorites: IFavorite = JSON.parse(localStorage.getItem("favorites")!) || ({} as IFavorite);
     const isVacancyAlredySaved = vacancy.id in favorites;
     dispatch(setFiltersMenuVisibility(false));
@@ -61,7 +61,7 @@ const Vacancy: FC<IVacancyProps> = ({ vacancy, loading = false, classNames = {} 
 
     dispatch(setFavorites(Object.values(favorites)));
     localStorage.setItem("favorites", JSON.stringify(favorites));
-    e.stopPropagation();
+    event.stopPropagation();
   }
 
   function checkSaved() {

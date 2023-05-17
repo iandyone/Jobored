@@ -23,12 +23,14 @@ export interface VacanciesSearchParams {
 }
 
 export interface IFilter {
+  count?: number;
+  page?: number;
+  no_agreement?: number;
   keyword?: string;
   published?: number;
   payment_to?: number;
   catalogues?: number;
   payment_from?: number;
-  no_agreement?: number;
 }
 
 export interface IPosition {
@@ -45,7 +47,7 @@ export interface IAuthResponse {
   token_type: string;
 }
 
-export interface VacanciesResponse {
+export interface IVacanciesResponse {
   more: boolean;
   objects: IVacancy[];
   total: number;

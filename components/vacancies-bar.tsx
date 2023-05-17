@@ -18,10 +18,10 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
   const { page: currentPage } = useSelectorTyped((store) => store.vacancies);
   const { activeFilters } = useSelectorTyped((state) => state.filters);
   const dispatch = useDispatchTyped();
-  const vacanciesConfig = getVacanciesRequestConfig();
+  const vacanciesRequestConfig = getVacanciesRequestConfig();
   const skipFetchCondition = !Object.keys(activeFilters).length && currentPage === 1;
 
-  const { isFetching, isLoading, data } = vacanciesApi.useFetchVacanciesQuery(vacanciesConfig, { skip: skipFetchCondition });
+  const { isFetching, isLoading, data } = vacanciesApi.useFetchVacanciesQuery(vacanciesRequestConfig, { skip: skipFetchCondition });
   const [pages, setPages] = useState(getPageCounter());
   const loading = isFetching || isLoading;
   const vacancies = getVacancies();
@@ -34,7 +34,6 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
 
     const vacancies = data ? data.objects : startVacancies;
     dispatch(setVacancies(vacancies));
-
     return vacancies;
   }
 
@@ -58,9 +57,9 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
 
   function getVacanciesRequestConfig() {
     return {
+      count: +process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE!,
       page: currentPage,
       no_agreement: 1,
-      count: process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE,
       ...activeFilters,
     };
   }

@@ -6,8 +6,8 @@ import styles from "../styles/filters-menu.module.scss";
 const FiltersMenu: FC = () => {
   const { filters: isMenuActive } = useSelectorTyped((store) => store.menu);
 
-  function handlerOnCLick(e: MouseEvent<HTMLElement>) {
-    e.stopPropagation();
+  function handlerOnCLick(event: MouseEvent<HTMLElement>) {
+    event.stopPropagation();
   }
 
   return (

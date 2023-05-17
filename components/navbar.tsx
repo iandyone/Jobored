@@ -13,21 +13,21 @@ const NavBar: FC<NavBarProps> = ({ className }) => {
   const { pathname } = useRouter();
   const dispatch = useDispatchTyped();
 
-  function handlerOnClick(e: MouseEvent<HTMLElement>) {
-    e.stopPropagation();
+  function handlerOnClick(event: MouseEvent<HTMLElement>) {
+    event.stopPropagation();
   }
 
-  function handlerLinkOnLick() {
+  function handlerLinkOnClick() {
     dispatch(closeSidesMenu());
   }
 
   return (
     <nav className={`${styles.navigation} ${className}`} onClick={handlerOnClick}>
       <ul className={styles.navigation__links}>
-        <li className={`${styles.navigation__link} ${!pathname.includes("favorites") && styles.active}`} onClick={handlerLinkOnLick}>
+        <li className={`${styles.navigation__link} ${!pathname.includes("favorites") && styles.active}`} onClick={handlerLinkOnClick}>
           <Link href='/'>Поиск Вакансий</Link>
         </li>
-        <li className={`${styles.navigation__link} ${pathname.includes("favorites") && styles.active}`} onClick={handlerLinkOnLick}>
+        <li className={`${styles.navigation__link} ${pathname.includes("favorites") && styles.active}`} onClick={handlerLinkOnClick}>
           <Link href='/favorites'>Избранное</Link>
         </li>
       </ul>

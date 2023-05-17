@@ -23,7 +23,6 @@ const VacanciesList: FC<VacanciesListProps> = ({ vacancies, pages, currentPage, 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     handleResize();
-
     return () => window.removeEventListener("resize", handleResize);
   });
 

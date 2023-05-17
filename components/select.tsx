@@ -14,9 +14,9 @@ const Select: FC<ISelect> = ({ className }) => {
   const selectClassName = `${styles.select} ${category.title && styles.active} ${menuVisability && styles.selected} ${className}`;
   const dispatch = useDispatchTyped();
 
-  function setMenuVisibility(e: MouseEvent<HTMLElement>) {
+  function setMenuVisibility(event: MouseEvent<HTMLElement>) {
     dispatch(setCategoriesMenuVisibility(!menuVisability));
-    e.stopPropagation();
+    event.stopPropagation();
   }
 
   return (

@@ -1,4 +1,4 @@
-import { updateAuthTokens } from "@/helpers/fetchers";
+import { setRefreshToken, updateAuthTokens } from "@/helpers/fetchers";
 import axios from "axios";
 
 const $axios = axios.create({
@@ -15,13 +15,16 @@ $axios.interceptors.response.use(
   (config) => config,
   async (err) => {
     const originalRequest = err.config;
-    if (err.response.status === 401 && err.config && !originalRequest._isRetry) {
-      originalRequest._isRetry = true;
+    if (err.response.status === 401 && err.config && !originalRequest.isRetry) {
+      originalRequest.isRetry = true;
       try {
         const tokens = await updateAuthTokens();
-        document.cookie = `refresh=${tokens?.refreshToken}`;
-        localStorage.setItem("access", tokens?.accessToken!);
-        await $axios.request(originalRequest);
+
+        if (tokens) {
+          setRefreshToken(tokens.refreshToken);
+          localStorage.setItem("access", tokens.accessToken);
+          await $axios.request(originalRequest);
+        }
       } catch (error) {
         console.error(error);
       }

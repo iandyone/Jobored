@@ -13,8 +13,8 @@ const SearchInput: FC<SearchInputProps> = ({ placeholder }) => {
   const { title } = useSelectorTyped((store) => store.filters);
   const dispatch = useDispatchTyped();
 
-  function inputChangeHandler(e: ChangeEvent<HTMLInputElement>) {
-    dispatch(setTitle(e.target.value));
+  function inputChangeHandler(event: ChangeEvent<HTMLInputElement>) {
+    dispatch(setTitle(event.target.value));
   }
 
   return (

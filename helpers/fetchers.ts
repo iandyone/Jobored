@@ -1,4 +1,4 @@
-import { IAuthResponse, ICatalog, IVacancy, VacanciesResponse } from "@/types";
+import { IAuthResponse, ICatalog, IVacancy, IVacanciesResponse } from "@/types";
 import $axios from "@/axios";
 
 const login = process.env.NEXT_PUBLIC_LOGIN;
@@ -36,7 +36,7 @@ export async function getAuthorization() {
 
 export async function getVacancies({ page = 1, count = vacanciesPerPage }) {
   try {
-    const vacanciesResponse = await $axios.get<VacanciesResponse>("/vacancies", {
+    const vacanciesResponse = await $axios.get<IVacanciesResponse>("/vacancies", {
       params: { page, count },
     });
 
@@ -62,7 +62,7 @@ export async function getCatalog() {
         catalotResponse.data.map((category) => {
           return { key: category.key, title: category.title_trimmed };
         }) || [];
-
+        
       return categories;
     }
 

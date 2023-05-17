@@ -1,5 +1,5 @@
 import { getAuthorization, getCatalog, getVacancies, setRefreshToken } from "@/helpers/fetchers";
-import { VacanciesResponse } from "@/types";
+import { IVacanciesResponse } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
 import { FC, useEffect } from "react";
 import { setFavorites } from "@/store/slices/vacancies-slice";
@@ -12,9 +12,9 @@ import Head from "next/head";
 import styles from "@/styles/main.module.scss";
 
 export async function getStaticProps() {
-  const tokens = (await getAuthorization()) || "";
-  const vacancies = (await getVacancies({})) || [];
-  const categories = (await getCatalog()) || [];
+  const tokens = await getAuthorization() || "";
+  const vacancies = await getVacancies({}) || [];
+  const categories = await getCatalog() || [];
 
   return {
     props: { tokens, vacancies, categories },
@@ -22,7 +22,7 @@ export async function getStaticProps() {
 }
 
 interface MainPageProps {
-  vacancies: VacanciesResponse;
+  vacancies: IVacanciesResponse;
   categories: ICategory[];
   tokens: {
     accessToken: string;

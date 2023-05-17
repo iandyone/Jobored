@@ -1,4 +1,4 @@
-import { IFilter, IVacancy, VacanciesResponse } from "@/types";
+import { IFilter, IVacancy, IVacanciesResponse } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const vacanciesApi = createApi({
@@ -9,7 +9,7 @@ export const vacanciesApi = createApi({
   tagTypes: ["vacancies"],
   endpoints: (build) => {
     return {
-      fetchVacancies: build.query<VacanciesResponse, IFilter>({
+      fetchVacancies: build.query<IVacanciesResponse, IFilter>({
         query: (params) => {
           return {
             url: "/vacancies",

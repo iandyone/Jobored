@@ -11,10 +11,10 @@ const CategoryInput: FC<CategoryInputProps> = ({ category }) => {
   const { categories } = useSelectorTyped((store) => store.filters);
   const dispatch = useDispatchTyped();
 
-  function handlerOnClick(e: MouseEvent<HTMLInputElement>) {
+  function handlerOnClick(event: MouseEvent<HTMLInputElement>) {
     const currentCategory = categories.find((categoryItem) => categoryItem.title === category);
     dispatch(setCategory(currentCategory!));
-    e.stopPropagation();
+    event.stopPropagation();
   }
 
   return (

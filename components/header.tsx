@@ -12,10 +12,10 @@ const Header: FC = () => {
   const dispatch = useDispatchTyped();
   const { burger } = useSelectorTyped((store) => store.menu);
 
-  function handlerBurgerOnCLick(e: MouseEvent<HTMLElement>) {
+  function handlerBurgerOnCLick(event: MouseEvent<HTMLElement>) {
     dispatch(setBurgerMenuVisibility(!burger));
     dispatch(setFiltersMenuVisibility(false));
-    e.stopPropagation();
+    event.stopPropagation();
   }
 
   return (
