@@ -14,13 +14,53 @@
     width: 16px;
     height: 16px;
     background: url("../public/search.svg") center no-repeat;
+
+    @media (max-width: 992px) {
+      left: 78px;
+      top: 58%;
+    }
+    @media (max-width: 480px) {
+      left: 72px;
+    }
+    @media (max-width: 410px) {
+      top: 30%;
+      left: 12px;
+    }
+    @media (max-width: 350px) {
+      left: 8px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    display: flex;
+    align-items: center;
+    column-gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  @media (max-width: 480px) {
+    column-gap: 10px;
+  }
+
+  @media (max-width: 410px) {
+    flex-direction: column-reverse;
+    row-gap: 10px;
   }
 
   &__input {
     @extend %input;
-    padding-left: 36px;
     height: 48px;
+    padding-left: 36px;
     padding-right: 110px;
+
+    @media (max-width: 992px) {
+      margin-bottom: 0 !important;
+      padding-right: 105px;
+    }
+    @media (max-width: 350px) {
+      padding-left: 26px;
+      padding-right: 80px;
+    }
   }
 
   &__button {
@@ -28,7 +68,18 @@
     height: 32px;
     position: absolute;
     right: 12px;
-    top: 49%;
+    top: 50%;
     transform: translateY(-60%);
+
+    @media (max-width: 992px) {
+      top: 56%;
+    }
+    @media (max-width: 410px) {
+      top: 28%;
+    }
+    @media (max-width: 350px) {
+      right: 6px;
+      width: 68px;
+    }
   }
 }

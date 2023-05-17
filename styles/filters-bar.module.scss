@@ -74,6 +74,12 @@
   &__title {
     @extend %title;
   }
+
+  &__button {
+    @media (max-width: 992px) {
+        font-size: 16px;
+    }
+  }
 }
 
 .industry {
