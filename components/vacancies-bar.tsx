@@ -1,5 +1,5 @@
+import { IFilter, IVacancy, handlerPageChangeProps } from "@/types";
 import { useDispatchTyped, useSelectorTyped } from "@/hooks/redux";
-import { IVacancy, handlerPageChangeProps } from "@/types";
 import { FC, useEffect, useState } from "react";
 import { setPage, setVacancies } from "@/store/slices/vacancies-slice";
 import { vacanciesApi } from "@/store/api/vacancies-api";
@@ -55,7 +55,7 @@ const VacanciesBar: FC<VacanciesBarProps> = ({ vacancies: startVacancies }) => {
     scrollTop();
   }
 
-  function getVacanciesRequestConfig() {
+  function getVacanciesRequestConfig():IFilter {
     return {
       count: +process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE!,
       page: currentPage,

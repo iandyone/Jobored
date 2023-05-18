@@ -38,7 +38,7 @@ const VacansyPage: FC = () => {
     return (
       <>
         <Head>
-          <title>Jobored | Vacancy Not Found</title>
+          <title>Jobored | Empty</title>
         </Head>
         <EmptyState className={styles.vacancy__error}>
           <Heading className={styles.vacancy__heading} text='Упс, здесь еще ничего нет!' tag='h2' />
