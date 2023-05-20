@@ -15,7 +15,7 @@ $axios.interceptors.response.use(
   (config) => config,
   async (err) => {
     const originalRequest = err.config;
-    if (err.response.status === 401 && err.config && !originalRequest.isRetry) {
+    if ((err.response.status === 401 || err.response.status === 410) && err.config && !originalRequest.isRetry) {
       originalRequest.isRetry = true;
       try {
         const tokens = await updateAuthTokens();

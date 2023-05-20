@@ -126,7 +126,8 @@ function getRefreshTokenFromCookie() {
   const refreshTokenCookie = document.cookie.split(`; `).find((cookie) => cookie.includes("refresh"));
 
   if (refreshTokenCookie) {
-    const refreshToken = refreshTokenCookie.split("=")[1];
+    const refreshTokenBody = refreshTokenCookie.split("=")[1];
+    const refreshToken = refreshTokenBody.split(' ')[1];
     return refreshToken;
   }
 
