@@ -1,4 +1,5 @@
 import { getAuthorization, getCatalog, getVacancies, setRefreshToken } from "@/helpers/fetchers";
+import { updateAxiosRequestInterceptor } from "@/axios";
 import { IVacanciesResponse } from "@/types";
 import { useDispatchTyped } from "@/hooks/redux";
 import { FC, useEffect } from "react";
@@ -41,6 +42,7 @@ const MainPage: FC<MainPageProps> = ({ vacancies, categories, tokens }) => {
 
     if (tokens) {
       localStorage.setItem("access", tokens.accessToken);
+      updateAxiosRequestInterceptor();
       setRefreshToken(tokens.refreshToken);
     }
   }, []);

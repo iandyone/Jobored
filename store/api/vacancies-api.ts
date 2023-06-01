@@ -1,10 +1,9 @@
 import { IFilter, IVacancy, IVacanciesResponse } from "@/types";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { axiosBaseQuery } from "@/axios";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const vacanciesApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-  }),
+  baseQuery: axiosBaseQuery,
   reducerPath: "vacanciesApi",
   tagTypes: ["vacancies"],
   endpoints: (build) => {
@@ -14,11 +13,6 @@ export const vacanciesApi = createApi({
           return {
             url: "/vacancies",
             params,
-            headers: {
-              Authorization: localStorage.getItem("access") || "",
-              "X-Api-App-Id": process.env.NEXT_PUBLIC_X_API_APP_ID,
-              "x-secret-key": process.env.NEXT_PUBLIC_X_SECRET_KEY,
-            },
           };
         },
       }),
@@ -27,11 +21,6 @@ export const vacanciesApi = createApi({
         query: (id) => {
           return {
             url: `/vacancies/${id}`,
-            headers: {
-              Authorization: localStorage.getItem("access") || "",
-              "X-Api-App-Id": process.env.NEXT_PUBLIC_X_API_APP_ID,
-              "x-secret-key": process.env.NEXT_PUBLIC_X_SECRET_KEY,
-            },
           };
         },
       }),

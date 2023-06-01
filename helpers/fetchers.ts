@@ -10,18 +10,13 @@ const vacanciesPerPage = process.env.NEXT_PUBLIC_VACANCIES_PER_PAGE;
 export async function getAuthorization() {
   try {
     const authResponse = await $axios.get<IAuthResponse>("/oauth2/password", {
-      params: { login, password, client_secret, client_id, hr: 0 },
+      params: { login, password, client_secret, client_id, hr: 0, timeStamp: Date.now() },
+      headers: { "Cache-Control": "no-cache" },
     });
 
     if (authResponse.status === 200) {
       const accessToken = `${authResponse.data.token_type} ${authResponse.data.access_token}`;
       const refreshToken = `${authResponse.data.token_type} ${authResponse.data.refresh_token}`;
-
-      $axios.interceptors.request.use((config) => {
-        config.headers.Authorization = accessToken;
-        return config;
-      });
-
       return { accessToken, refreshToken };
     }
 
@@ -62,7 +57,7 @@ export async function getCatalog() {
         catalotResponse.data.map((category) => {
           return { key: category.key, title: category.title_trimmed };
         }) || [];
-        
+
       return categories;
     }
 
@@ -94,7 +89,7 @@ export async function getVacancy({ id = "" }) {
 export async function updateAuthTokens() {
   try {
     const refreshToken = getRefreshTokenFromCookie();
-    const updateResponse = await $axios.get<IAuthResponse>(`/refresh_token`, {
+    const updateResponse = await $axios.get<IAuthResponse>(`/oauth2/refresh_token/`, {
       params: { client_id, client_secret, refresh_token: refreshToken },
     });
 
@@ -102,7 +97,6 @@ export async function updateAuthTokens() {
       const accessToken = `${updateResponse.data.token_type} ${updateResponse.data.access_token}`;
       const refreshToken = `${updateResponse.data.token_type} ${updateResponse.data.refresh_token}`;
 
-      setRefreshToken(refreshToken);
       return { accessToken, refreshToken };
     }
 
@@ -117,7 +111,7 @@ export async function updateAuthTokens() {
 export function setRefreshToken(refreshToken: string) {
   const currentDate = Date.now();
   const refreshCookieEndDate = new Date(currentDate);
-  
+
   refreshCookieEndDate.setDate(refreshCookieEndDate.getDate() + 30);
   document.cookie = `refresh=${refreshToken}; expires=${refreshCookieEndDate.toUTCString()}; secure`;
 }
@@ -127,7 +121,7 @@ function getRefreshTokenFromCookie() {
 
   if (refreshTokenCookie) {
     const refreshTokenBody = refreshTokenCookie.split("=")[1];
-    const refreshToken = refreshTokenBody.split(' ')[1];
+    const refreshToken = refreshTokenBody.split(" ")[1];
     return refreshToken;
   }
 
